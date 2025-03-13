@@ -1,3 +1,4 @@
-export default function Main({ className }) {
-  return <div className={className}>This is some text</div>;
+import ProductCard from "../components/ProductCard";
+export default function Main() {
+  return null;
 }
