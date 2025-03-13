@@ -1,11 +1,14 @@
 import App from "./App";
 import Auth from "./components/Auth";
-
+import Home from "./components/Home";
 const routes = [
   {
     path: "/",
     element: <App />,
-    children: [{ path: "Auth", element: <Auth /> }],
+    children: [
+      { index: true, element: <Home /> },
+      { path: "Auth", element: <Auth /> },
+    ],
   },
 ];
 

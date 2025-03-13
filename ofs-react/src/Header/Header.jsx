@@ -1,9 +1,9 @@
 import logo from "../assets/spartans.png";
 import Dropdown from "../components/Dropdown";
 import { Link } from "react-router-dom";
-export default function Header({ className }) {
+export default function Header() {
   return (
-    <div className={className}>
+    <div className="flex gap-10 p-5 shadow-sm bg-cyan-500 shadow-cyan-500/50">
       <Link to="/">
         <div className="shrink flex items-center gap-5 grow">
           <img className="w-20" src={logo} alt="Spartan Logo" />
