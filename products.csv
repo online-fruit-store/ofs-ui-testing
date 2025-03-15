@@ -1,22 +1,22 @@
-name	price	category	stock	img_url
-apple	0.66	fruit	85	
-banana	0.63	fruit	94	
-orange	0.51	fruit	51	
-pineapple	0.73	fruit	97	
-watermelon	0.1	fruit	50	
-cantaloupe	0.15	fruit	36	
-kiwi	0.71	fruit	60	
-lettuce	0.15	vegetable	60	
-tomato	0.37	vegetable	0	
-celery	0.63	vegetable	41	
-onion	0.51	vegetable	42	
-potato	0.04	vegetable	39	
-beef	0.88	meat	96	
-chicken	0.92	meat	90	
-fish	0.65	meat	82	
-pasta	0.84	grains	77	
-rice	0.04	grains	88	
-cereal	0.83	grains	56	
-milk	0.66	dairy	19	
-cheese	0.99	dairy	33	
-ham	0.99	deli	73	
+name,price,category,stock,img_url
+apple,0.66,fruit,85,
+banana,0.63,fruit,94,
+orange,0.51,fruit,51,
+pineapple,0.73,fruit,97,
+watermelon,0.1,fruit,50,
+cantaloupe,0.15,fruit,36,
+kiwi,0.71,fruit,60,
+lettuce,0.15,vegetable,60,
+tomato,0.37,vegetable,0,
+celery,0.63,vegetable,41,
+onion,0.51,vegetable,42,
+potato,0.04,vegetable,39,
+beef,0.88,meat,96,
+chicken,0.92,meat,90,
+fish,0.65,meat,82,
+pasta,0.84,grains,77,
+rice,0.04,grains,88,
+cereal,0.83,grains,56,
+milk,0.66,dairy,19,
+cheese,0.99,dairy,33,
+ham,0.99,deli,73,
