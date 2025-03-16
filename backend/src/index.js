@@ -6,14 +6,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const example = [{ name: "Ivan", ethnicity: "Chicano", money: 3.99 }];
-app.get("/", async (req, res) => {
+app.get("/products", async (req, res) => {
   const products = await db.getAllProducts();
   res.json(products);
 });
 
-app.get("/ivan", (req, res) => {
-  res.json(example);
+app.get("/categories", async (req, res) => {
+  const categories = await db.getAllCategories();
+  res.json(categories);
 });
 
 app.listen(process.env.PORT, () =>

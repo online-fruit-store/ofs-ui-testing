@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "http://localhost:3000/products";
 import ProductCard from "./ProductCard";
 
 export default function Main() {

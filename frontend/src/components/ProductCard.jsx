@@ -8,7 +8,9 @@ export default function ProductCard({
 }) {
   return (
     <div className="border-2 rounded-sm border-black flex flex-col items-center justify-center bg-cyan-500 p-5">
-      <img className="w-32 h-32" src={url} />
+      <div className="bg-white border-black border-1 rounded-sm">
+        <img className="w-32 h-32" src={url} />
+      </div>
       <div className="flex items-center justify-center flex-col gap-5">
         <p className="font-semibold">{name}</p>
         <p>${price}</p>
