@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-const BASE_URL = "http://localhost:3000/products";
 import ProductCard from "./ProductCard";
+const BASE_URL = "http://localhost:3000/products";
 
 export default function Main() {
   const [isLoading, setIsLoading] = useState(false);

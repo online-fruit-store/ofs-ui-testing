@@ -40,11 +40,15 @@ export default function Header() {
               text="Categories"
               className="relative inline-block"
               listItems={categories.map((item) => item.category)}
-              link={"/Auth"}
+              link={"/categories"}
             />
           </li>
           <li>
-            <Dropdown text="Login" className="relative inline-block" />
+            <Dropdown
+              text="Login"
+              className="relative inline-block"
+              link={"/Auth"}
+            />
           </li>
           <li>
             <Dropdown text="Checkout" className="relative inline-block" />

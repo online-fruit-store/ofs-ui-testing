@@ -1,11 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-function Dropdown({
-  text,
-  className,
-  listItems = ["Option 1", "Option 2", "Option 3"],
-  link,
-}) {
+function Dropdown({ text, className, listItems, link }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -15,11 +10,12 @@ function Dropdown({
       onMouseLeave={() => setIsOpen(false)}
     >
       <Link to={link}>
-        <button className="px-4 py-2 font-bold text-white rounded hover:ring">
+        <button className="px-4 py-2 font-bold text-white rounded hover:ring hover:bg-sky-700 cursor-pointer">
           {text}
         </button>
       </Link>
-      {isOpen && (
+
+      {isOpen && listItems && (
         <ul className="absolute left-0 mt-0 w-48 bg-white border rounded shadow-lg">
           {listItems.map((item) => {
             return <li className="px-4 py-2 hover:bg-gray-100">{item}</li>;
