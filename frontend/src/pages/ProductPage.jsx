@@ -17,7 +17,7 @@ export default function ProductPage() {
   if (!product) return <div>Product not found</div>;
 
   return (
-    <div className="p-5">
+    <div className="p-5 grow">
       <h1 className="text-3xl font-bold">{product.name}</h1>
       <img
         src={product.img_url}

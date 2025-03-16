@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 const BASE_URL = "http://localhost:3000/products";
 import ProductCard from "./ProductCard";
 
@@ -43,6 +44,7 @@ export default function Main() {
             name={product.name}
             price={product.price}
             url={product.img_url}
+            key={product.name}
           />
         );
       })}
