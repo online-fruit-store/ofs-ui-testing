@@ -11,6 +11,12 @@ app.get("/products", async (req, res) => {
   res.json(products);
 });
 
+app.get("/products/:productName", async (req, res) => {
+  const { productName } = req.params;
+  const product = await db.getProduct(productName);
+  res.json(product);
+});
+
 app.get("/categories", async (req, res) => {
   const categories = await db.getAllCategories();
   res.json(categories);

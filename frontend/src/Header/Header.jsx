@@ -1,32 +1,11 @@
 import logo from "../assets/spartans.png";
 import Dropdown from "../components/Dropdown";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import useFetch from "../hooks/useFetch";
 const BASE_URL = "http://localhost:3000/categories";
+
 export default function Header() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      setIsLoading(true);
-
-      try {
-        const response = await fetch(`${BASE_URL}`, {
-          mode: "cors",
-        });
-        const categories = await response.json();
-        setCategories(categories);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchCategories();
-  }, []);
-
+  const { data: categories, isLoading, error } = useFetch(BASE_URL);
   if (isLoading) {
     return <div>Loading...</div>;
   }
