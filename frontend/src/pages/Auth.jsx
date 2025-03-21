@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Login from "./Login";
-import Registration from "./Registration";
+import Login from "../components/Login";
+import Registration from "../components/Registration";
 export default function Auth() {
   const COLORS = [
     "border-2 rounded-md p-2 bg-sky-500 text-white border-black font-semibold",
