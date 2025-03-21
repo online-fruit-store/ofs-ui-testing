@@ -1,5 +1,6 @@
 import logo from "../assets/spartans.png";
 import Dropdown from "../components/Dropdown";
+import DropdownCart from "./DropdownCart";
 import { Link } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 const BASE_URL = "http://localhost:3000/categories";
@@ -13,6 +14,7 @@ export default function Header() {
   if (error) {
     return <div>Something went wrong! Please try again.</div>;
   }
+
   return (
     <div className="flex gap-10 p-5 shadow-sm bg-cyan-500 shadow-cyan-500/50">
       <Link to="/">
@@ -51,7 +53,7 @@ export default function Header() {
             />
           </li>
           <li>
-            <Dropdown text="Checkout" className="relative inline-block" />
+            <DropdownCart text="Checkout" className="relative inline-block" />
           </li>
         </ul>
       </div>

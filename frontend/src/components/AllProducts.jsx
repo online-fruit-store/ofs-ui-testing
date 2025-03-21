@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
+
 import ProductCard from "./ProductCard";
 const BASE_URL = "http://localhost:3000/products";
 
@@ -36,7 +37,7 @@ export default function Main() {
   }
 
   return (
-    <div className="p-10 grid grid-flow-row grid-cols-4 gap-10">
+    <div className="p-10 grid grid-flow-row grid-cols-4 gap-10 grow">
       {products.map((product) => {
         return (
           <ProductCard
