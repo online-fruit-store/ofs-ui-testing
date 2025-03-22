@@ -23,10 +23,14 @@ function Dropdown({ text, className, link }) {
           {cart.map((product) => {
             return (
               <li className="px-4 py-2 hover:bg-gray-100">
-                {product.name} {product.qty}{" "}
+                {product.name} {product.qty}
               </li>
             );
           })}
+          <li className="px-4 py-2 hover:bg-gray-100">
+            Total Items:{" "}
+            {cart.reduce((total, product) => total + product.qty, 0)}
+          </li>
         </ul>
       )}
     </div>
