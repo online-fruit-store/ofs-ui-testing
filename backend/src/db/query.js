@@ -15,6 +15,11 @@ async function getProduct(productName) {
   ]);
   return rows.length > 0 ? rows[0] : null;
 }
+
+async function getUsers() {
+  const { rows } = await pool.query("SELECT * FROM users");
+}
+
 module.exports = {
   getAllProducts,
   getAllCategories,

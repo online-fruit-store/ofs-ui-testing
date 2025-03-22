@@ -22,6 +22,11 @@ app.get("/categories", async (req, res) => {
   res.json(categories);
 });
 
+app.get("/users", async (req, res) => {
+  const users = await db.getUsers();
+  res.json(users);
+});
+
 app.listen(process.env.PORT, () =>
   console.log(`Example app is listening on port ${process.env.PORT}`)
 );
