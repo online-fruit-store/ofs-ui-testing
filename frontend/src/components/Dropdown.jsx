@@ -10,7 +10,7 @@ function Dropdown({ text, className, listItems, link }) {
       onMouseLeave={() => setIsOpen(false)}
     >
       <Link to={link}>
-        <button className="px-4 py-2 font-bold text-white rounded hover:ring hover:bg-sky-700 cursor-pointer">
+        <button className="px-4 py-2 font-bold text-white rounded hover:ring cursor-pointer">
           {text}
         </button>
       </Link>

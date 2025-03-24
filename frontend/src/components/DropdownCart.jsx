@@ -13,13 +13,13 @@ function Dropdown({ text, className, link }) {
       onMouseLeave={() => setIsOpen(false)}
     >
       <Link to={link}>
-        <button className="px-4 py-2 font-bold text-white rounded hover:ring hover:bg-sky-700 cursor-pointer">
+        <button className="px-4 py-2 font-bold text-white rounded hover:ring cursor-pointer">
           {text}
         </button>
       </Link>
 
       {isOpen && (
-        <ul className="absolute left-0 mt-0 w-48 bg-white border rounded shadow-lg">
+        <ul className="absolute -left-8 mt-0 w-48 bg-white border rounded shadow-lg">
           {cart.map((product) => {
             return (
               <li className="px-4 py-2 hover:bg-gray-100">
@@ -27,9 +27,12 @@ function Dropdown({ text, className, link }) {
               </li>
             );
           })}
-          <li className="px-4 py-2 hover:bg-gray-100">
-            Total Items:{" "}
-            {cart.reduce((total, product) => total + product.qty, 0)}
+          <li className="px-4 py-2 hover:bg-gray-100 flex">
+            <div>
+              Total Items:{" "}
+              {cart.reduce((total, product) => total + product.qty, 0)}
+            </div>
+            <button className="border-1 rounded-sm">Checkout</button>
           </li>
         </ul>
       )}

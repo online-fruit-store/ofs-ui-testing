@@ -4,7 +4,7 @@ import { CartContext } from "../contexts/CartContext";
 
 export default function ProductCard({ name, price, url }) {
   const { cart, setCart } = useContext(CartContext);
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState(1);
   function handleQtyChange(e) {
     setQty(e.target.value);
   }
@@ -25,11 +25,11 @@ export default function ProductCard({ name, price, url }) {
     } else {
       setCart([...cart, { name: name, qty: qtyToAdd }]);
     }
-    setQty(0);
+    setQty(1);
   }
 
   return (
-    <div className="flex gap-3 items-center justify-center p-5">
+    <div className="flex gap-3 items-center justify-center p-5 rounded-lg hover:bg-gray-200">
       <Link to={`products/${name}`}>
         <div>
           <img className="w-32 h-32" src={url} />

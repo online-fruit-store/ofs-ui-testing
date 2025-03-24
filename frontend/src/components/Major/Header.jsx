@@ -16,17 +16,15 @@ export default function Header() {
   }
 
   return (
-    <div className="flex gap-10 p-5 shadow-sm bg-red-500 shadow-red-500/50">
+    <div className="flex gap-10 p-1 shadow-sm bg-red-500 shadow-red-500/50 ">
       <Link to="/">
-        <div className="flex items-center gap-5 grow">
+        <div className="flex items-center gap-5 hover:ring hover:ring-white rounded-sm">
           <img className="w-20" src={logo} alt="Spartan Logo" />
-          <p className="text-2xl font-bold text-white max-w-50">
-            Spartan Food Store
-          </p>
+          <p className="text-2xl font-bold text-white">Spartan Food Store</p>
         </div>
       </Link>
 
-      <div className="grow-8 flex items-center">
+      <div className="grow-7 flex items-center">
         <input
           className="border w-full p-2 bg-white rounded-lg"
           id="searchBox"
@@ -35,7 +33,7 @@ export default function Header() {
         />
       </div>
 
-      <div className="grow-1 flex items-center">
+      <div className="grow flex items-center">
         <ul className="flex">
           <li>
             <Dropdown
@@ -53,7 +51,7 @@ export default function Header() {
             />
           </li>
           <li>
-            <DropdownCart text="Checkout" className="relative inline-block" />
+            <DropdownCart text="Cart" className="relative inline-block" />
           </li>
         </ul>
       </div>
