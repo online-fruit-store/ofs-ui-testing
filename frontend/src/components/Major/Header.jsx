@@ -1,8 +1,8 @@
-import logo from "../assets/spartans.png";
-import Dropdown from "../components/Dropdown";
-import DropdownCart from "./DropdownCart";
+import logo from "../../assets/spartans.png";
+import Dropdown from "../Dropdown";
+import DropdownCart from "../DropdownCart";
 import { Link } from "react-router-dom";
-import useFetch from "../hooks/useFetch";
+import useFetch from "../../hooks/useFetch";
 const BASE_URL = "http://localhost:3000/categories";
 
 export default function Header() {
@@ -18,9 +18,9 @@ export default function Header() {
   return (
     <div className="flex gap-10 p-5 shadow-sm bg-red-500 shadow-red-500/50">
       <Link to="/">
-        <div className="shrink flex items-center gap-5 grow">
+        <div className="flex items-center gap-5 grow">
           <img className="w-20" src={logo} alt="Spartan Logo" />
-          <p className="text-3xl font-bold text-wrap text-white max-w-50">
+          <p className="text-2xl font-bold text-white max-w-50">
             Spartan Food Store
           </p>
         </div>

@@ -1,8 +1,8 @@
 import App from "./App";
-import Auth from "./pages/Auth";
-import AllProducts from "./components/AllProducts";
-import ProductPage from "./pages/ProductPage";
-import Checkout from "./pages/Checkout";
+import Auth from "./outlets/Auth";
+import AllProducts from "./components/Major/AllProducts";
+import ProductPage from "./outlets/ProductPage";
+import Checkout from "./outlets/Checkout";
 import AdminApp from "./AdminApp";
 import AdminHome from "./components/AdminHome";
 
