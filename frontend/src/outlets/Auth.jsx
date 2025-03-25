@@ -3,15 +3,15 @@ import Login from "../components/Login";
 import Registration from "../components/Registration";
 export default function Auth() {
   const COLORS = [
-    "rounded-md p-2 bg-sky-500 text-white border-black font-semibold",
-    "rounded-md p-2 bg-gray-300",
+    "rounded-md p-2 bg-indigo-600 hover:bg-indigo-500 text-sm/6 shadow-xs text-white font-semibold",
+    "rounded-md p-2 bg-gray-300 hover:bg-indigo-500 hover:text-white text-sm/6 font-semibold",
   ];
   const [activeComponent, setActiveComponent] = useState("A");
 
   return (
-    <div className="flex items-center grow justify-center">
-      <div className="border-3 rounded-md w-md">
-        <div className="flex justify-center pt-20 pb-5 gap-2">
+    <div className="flex items-center grow justify-center py-15">
+      <div className="border-1 rounded-md w-md">
+        <div className="flex justify-center pt-10 pb-5 gap-2">
           <button
             className={activeComponent === "A" ? COLORS[0] : COLORS[1]}
             onClick={() => setActiveComponent("A")}
