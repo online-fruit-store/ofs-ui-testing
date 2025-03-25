@@ -39,7 +39,7 @@ export default function Header() {
             />
           </li>
           <li>
-            <DropdownCart text="Cart" className="relative inline-block" />
+            <DropdownCart link={"/Checkout"} text="Cart" className="relative inline-block" />
           </li>
         </ul>
       </div>
