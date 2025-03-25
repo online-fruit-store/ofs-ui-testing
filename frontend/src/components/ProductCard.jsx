@@ -23,7 +23,7 @@ export default function ProductCard({ name, price, url }) {
         })
       );
     } else {
-      setCart([...cart, { name: name, qty: qtyToAdd }]);
+      setCart([...cart, { name: name, qty: qtyToAdd, price: price, url: url }]);
     }
     setQty(1);
   }

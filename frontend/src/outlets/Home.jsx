@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="grow">
       <h1 className="flex py-20 text-5xl align-center justify-center font-bold font-stretch-ultra-expanded text-gray-700">
-        Welcome to Spartan Shop!
+        Welcome to Spartan Food Store!
       </h1>
       <div className="flex flex-row gap-25 justify-center">
         <Link to="categories">
