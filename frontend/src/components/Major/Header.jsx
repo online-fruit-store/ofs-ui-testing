@@ -2,19 +2,8 @@ import logo from "../../assets/spartans.png";
 import Dropdown from "../Dropdown";
 import DropdownCart from "../DropdownCart";
 import { Link } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
-const BASE_URL = "http://localhost:3000/categories";
 
 export default function Header() {
-  const { data: categories, isLoading, error } = useFetch(BASE_URL);
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Something went wrong! Please try again.</div>;
-  }
-
   return (
     <div className="flex gap-10 p-1 shadow-sm bg-red-500 shadow-red-500/50 ">
       <Link to="/">
