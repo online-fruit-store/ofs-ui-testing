@@ -5,13 +5,13 @@ import ProductPage from "./outlets/ProductPage";
 import Checkout from "./outlets/Checkout";
 import AdminApp from "./AdminApp";
 import AdminHome from "./components/AdminHome";
-
+import Home from "./outlets/Home";
 const routes = [
   {
     path: "/",
     element: <App />,
     children: [
-      { index: true, element: <AllProducts /> },
+      { index: true, element: <Home /> },
       { path: "Auth", element: <Auth /> },
       { path: "products", element: <AllProducts /> },
       { path: "products/:productName", element: <ProductPage /> },

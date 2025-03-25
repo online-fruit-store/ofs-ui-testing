@@ -29,7 +29,9 @@ export default function Main() {
   }, []);
 
   if (isLoading) {
-    return <div className="flex items-center justify-center">Loading...</div>;
+    return (
+      <div className="flex grow items-center justify-center">Loading...</div>
+    );
   }
 
   if (error) {
@@ -37,7 +39,7 @@ export default function Main() {
   }
 
   return (
-    <div className="p-10 grid grid-flow-row grid-cols-4 grow">
+    <div className="grid grid-cols-4 gap-5 py-5 px-5">
       {products.map((product) => {
         return (
           <ProductCard

@@ -29,8 +29,8 @@ export default function ProductCard({ name, price, url }) {
   }
 
   return (
-    <div className="flex gap-3 items-center justify-center p-5 rounded-lg hover:bg-gray-200">
-      <Link to={`products/${name}`}>
+    <div className="flex gap-5 10 items-center justify-center p-5 rounded-lg hover:bg-gray-200 w-80">
+      <Link to={`${name}`}>
         <div>
           <img className="w-32 h-32" src={url} />
         </div>
@@ -57,7 +57,7 @@ export default function ProductCard({ name, price, url }) {
 
           <button
             type="submit"
-            className="border-2 border-none p-1 bg-red-500 text-white rounded-lg border-blue-100"
+            className="border-2 border-none px-2 py-1 bg-red-500 text-white text-sm rounded-lg border-blue-100"
           >
             Add to Cart
           </button>

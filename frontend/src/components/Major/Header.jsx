@@ -26,7 +26,7 @@ export default function Header() {
 
       <div className="grow-7 flex items-center">
         <input
-          className="border w-full p-2 bg-white rounded-lg"
+          className="p-2 w-full bg-white rounded-sm"
           id="searchBox"
           type="text"
           placeholder="Search"
@@ -37,10 +37,9 @@ export default function Header() {
         <ul className="flex">
           <li>
             <Dropdown
-              text="Categories"
+              text="Products"
               className="relative inline-block"
-              listItems={categories.map((item) => item.category)}
-              link={"/categories"}
+              link={"/products"}
             />
           </li>
           <li>
