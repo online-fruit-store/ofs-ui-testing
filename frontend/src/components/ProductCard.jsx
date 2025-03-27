@@ -6,6 +6,9 @@ import { CartContext } from "../contexts/CartContext";
 export default function ProductCard({ name, price, url }) {
   const { cart, setCart } = useContext(CartContext);
   const [activeComponent, setActiveComponent] = useState(0);
+  const [qty, setQty] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+
   const buttonControls = [
     <form
       className="flex flex-col items-center justify-center gap-1"
@@ -13,13 +16,42 @@ export default function ProductCard({ name, price, url }) {
     >
       <button
         type="submit"
-        className="border-2 border-none px-2 py-1 bg-red-500 text-white text-sm rounded-lg border-blue-100 cursor-pointer hover:bg-red-600
-          transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110"
+        className="border-2 border-none px-2 py-1 bg-red-500 text-white text-sm rounded-lg cursor-pointer hover:bg-red-600
+          transition delay-150 duration-300 ease-in-out hover:-translate-y-0.5 hover:scale-110"
       >
         Add to Cart
       </button>
     </form>,
+    <div className="flex gap-3">
+      <button
+        onClick={decreaseQty}
+        className="border-2 border-none px-2 py-1 bg-red-500 text-white text-sm rounded-lg cursor-pointer hover:bg-red-600"
+      >
+        -
+      </button>
+      <div className="bg-white border rounded-lg px-2">{qty}</div>
+      <button
+        className="border-2 border-none px-2 py-1 bg-red-500 text-white text-sm rounded-lg cursor-pointer hover:bg-red-600"
+        onClick={increaseQty}
+      >
+        +
+      </button>
+    </div>,
   ];
+
+  function decreaseQty() {
+    if (qty > 1) {
+      setQty(qty - 1);
+    } else {
+      setActiveComponent(0);
+    }
+  }
+
+  function increaseQty() {
+    if (qty < 50) {
+      setQty(qty + 1);
+    }
+  }
 
   function addToCart() {
     let product = cart.find((p) => p.name === name);
@@ -36,6 +68,7 @@ export default function ProductCard({ name, price, url }) {
     } else {
       setCart([...cart, { name: name, qty: 1, price: price, url: url }]);
     }
+    setQty(1);
     setActiveComponent(1);
   }
 
