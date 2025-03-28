@@ -1,6 +1,7 @@
 import logo from "../../assets/spartans.png";
 import Dropdown from "../Dropdown";
 import DropdownCart from "../DropdownCart";
+import SearchBar from "../SearchBar";
 import { Link } from "react-router-dom";
 
 export default function Header() {
@@ -14,12 +15,7 @@ export default function Header() {
       </Link>
 
       <div className="grow-7 flex items-center">
-        <input
-          className="p-2 w-full bg-white rounded-sm"
-          id="searchBox"
-          type="text"
-          placeholder="Search"
-        />
+        <SearchBar />
       </div>
 
       <div className="grow flex items-center">
@@ -39,7 +35,11 @@ export default function Header() {
             />
           </li>
           <li>
-            <DropdownCart link={"/Checkout"} text="Cart" className="relative inline-block" />
+            <DropdownCart
+              link={"/Checkout"}
+              text="Cart"
+              className="relative inline-block"
+            />
           </li>
         </ul>
       </div>
