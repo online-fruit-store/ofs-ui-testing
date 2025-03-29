@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import ProductCard from "../ProductCard";
 const BASE_URL = "http://localhost:3000/products";
@@ -8,15 +9,24 @@ export default function Main() {
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
+  const [searchParams] = useSearchParams();
+  const category = searchParams.get("category");
 
   useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
 
       try {
-        const response = await fetch(`${BASE_URL}`, {
-          mode: "cors",
-        });
+        let response;
+        if (category) {
+          response = await fetch(`${BASE_URL}?category=${category}`, {
+            mode: "cors",
+          });
+        } else {
+          response = await fetch(`${BASE_URL}`, {
+            mode: "cors",
+          });
+        }
         const products = await response.json();
         setProducts(products);
       } catch (error) {
@@ -26,7 +36,7 @@ export default function Main() {
       }
     };
     fetchProducts();
-  }, []);
+  }, [category]);
 
   if (isLoading) {
     return (
@@ -39,7 +49,7 @@ export default function Main() {
   }
 
   return (
-    <div className="grid grid-cols-4 gap-5 py-5 px-5">
+    <div className="grow grid grid-cols-4 gap-5 py-5 px-5">
       {products.map((product) => {
         return (
           <ProductCard

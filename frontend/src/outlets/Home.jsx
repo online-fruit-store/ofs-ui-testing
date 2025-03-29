@@ -12,7 +12,7 @@ export default function Home() {
         Welcome to Spartan Food Store!
       </h1>
       <div className="flex flex-row gap-25 justify-center">
-        <Link to="categories">
+        <Link to="products?category=vegetable">
           <div className="bg-white flex flex-col border-1 h-108 w-64 rounded-md justify-center transition delay-100 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
             <img className="basis-3/4 p-4" src={vegetables}></img>
             <p className="flex basis-1/4 border-t grow-6 items-center justify-center text-2xl font-bold">
@@ -20,7 +20,7 @@ export default function Home() {
             </p>
           </div>
         </Link>
-        <Link to="categories">
+        <Link to="products?category=fruit">
           <div className="bg-white flex flex-col border-1 h-108 w-64 rounded-md justify-center transition delay-100 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
             <img className="basis-3/4 p-4" src={fruits}></img>
             <p className="flex basis-1/4 border-t items-center justify-center text-2xl font-bold">
@@ -28,7 +28,7 @@ export default function Home() {
             </p>
           </div>
         </Link>
-        <Link to="categories">
+        <Link to="products?category=meat">
           <div className="bg-white flex flex-col border-1 h-108 w-64 rounded-md justify-center transition delay-100 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
             <img className="basis-3/4" src={meat}></img>
             <p className="flex basis-1/4 border-t items-center justify-center text-2xl font-bold">
@@ -36,7 +36,7 @@ export default function Home() {
             </p>
           </div>
         </Link>
-        <Link to="categories">
+        <Link to="products?category=dairy">
           <div className="bg-white flex flex-col border-1 h-108 w-64 rounded-md justify-center transition delay-100 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
             <img className="basis-3/4" src={cheese}></img>
             <p className="flex basis-1/4 border-t items-center justify-center text-2xl font-bold">

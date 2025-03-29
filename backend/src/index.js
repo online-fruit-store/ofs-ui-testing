@@ -7,7 +7,13 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/products", async (req, res) => {
-  const products = await db.getAllProducts();
+  let products = [];
+  const { category } = req.query;
+  if (category) {
+    products = await db.getFilteredProducts(category);
+  } else {
+    products = await db.getAllProducts();
+  }
   res.json(products);
 });
 

@@ -16,6 +16,14 @@ async function getProduct(productName) {
   return rows.length > 0 ? rows[0] : null;
 }
 
+async function getFilteredProducts(category) {
+  const { rows } = await pool.query(
+    "SELECT * FROM products where 1=1 AND category = $1",
+    [category]
+  );
+  return rows;
+}
+
 async function getUsers() {
   const { rows } = await pool.query("SELECT * FROM users");
 }
@@ -24,4 +32,5 @@ module.exports = {
   getAllProducts,
   getAllCategories,
   getProduct,
+  getFilteredProducts,
 };

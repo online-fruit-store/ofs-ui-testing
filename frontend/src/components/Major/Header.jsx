@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <div className="flex gap-10 p-1 shadow-sm bg-red-500 shadow-red-500/50 ">
+    <div className="flex gap-10 p-1 shadow-sm bg-red-500 fixed w-full">
       <Link to="/">
         <div className="flex items-center gap-5 hover:ring hover:ring-white rounded-sm">
           <img className="w-20" src={logo} alt="Spartan Logo" />
