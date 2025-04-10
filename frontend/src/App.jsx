@@ -1,12 +1,14 @@
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./components/Major/Header";
+import Footer from "./components/Major/Footer";
 import { Outlet } from "react-router-dom";
 
 function App() {
   return (
-    <div className="flex flex-col grow min-h-screen">
+    <div className="flex flex-col grow min-h-screen relative">
       <Header />
-      <Outlet />
+      <div className="flex pt-20 grow">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );
