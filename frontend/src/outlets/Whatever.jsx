@@ -1,10 +1,10 @@
- import Image from "next/image"
-import Link from "next/link"
-import Farmer from "farmers-market-produce-0812211-3692542286.jpg"
+//  import Image from "next/image"
+// import Link from "next/link"
+// import Farmer from "farmers-market-produce-0812211-3692542286.jpg"
 
 import {Link} from "react-router-dom"; 
 
-import { ShoppingCart, MapPin, Truck } from "lucide-react"
+// import { ShoppingCart, MapPin, Truck } from "lucide-react"
 
 export default function Whatever() {
   return (
@@ -15,22 +15,22 @@ export default function Whatever() {
           <nav>
             <ul className="flex space-x-4">
               <li>
-                <Link href="#about" className="hover:underline">
+                <Link to="#" className="hover:underline">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="#products" className="hover:underline">
+                <Link to="#" className="hover:underline">
                   Products
                 </Link>
               </li>
               <li>
-                <Link href="#delivery" className="hover:underline">
+                <Link to="#" className="hover:underline">
                   Delivery
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="hover:underline">
+                <Link to="#" className="hover:underline">
                   Contact
                 </Link>
               </li>
@@ -54,13 +54,13 @@ export default function Whatever() {
             <h2 className="text-3xl font-bold mb-8 text-center">About Us</h2>
             <div className="flex flex-col md:flex-row items-center justify-between">
               <div className="md:w-1/2 mb-8 md:mb-0">
-                <Image
+                {/* <Image
                   src={Farmer}
                   alt="Grocer Grove Store Front"
                   width={400}
                   height={300}
                   className="rounded-lg shadow-md"
-                />
+                /> */}
               </div>
               <div className="md:w-1/2 md:pl-8">
                 <p className="text-lg mb-4">
@@ -103,17 +103,17 @@ export default function Whatever() {
             <h2 className="text-3xl font-bold mb-8">Home Delivery</h2>
             <div className="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-12">
               <div className="flex flex-col items-center">
-                <ShoppingCart className="h-16 w-16 text-green-700 mb-4" />
+                {/* <ShoppingCart className="h-16 w-16 text-green-700 mb-4" /> */}
                 <h3 className="text-xl font-semibold mb-2">Easy Ordering</h3>
                 <p className="text-gray-600">Browse and order from our full selection online</p>
               </div>
               <div className="flex flex-col items-center">
-                <Truck className="h-16 w-16 text-green-700 mb-4" />
+                {/* <Truck className="h-16 w-16 text-green-700 mb-4" /> */}
                 <h3 className="text-xl font-semibold mb-2">Fast Delivery</h3>
                 <p className="text-gray-600">Get your groceries delivered to your doorstep</p>
               </div>
               <div className="flex flex-col items-center">
-                <MapPin className="h-16 w-16 text-green-700 mb-4" />
+                {/* <MapPin className="h-16 w-16 text-green-700 mb-4" /> */}
                 <h3 className="text-xl font-semibold mb-2">Local Focus</h3>
                 <p className="text-gray-600">Supporting local farmers and producers</p>
               </div>
