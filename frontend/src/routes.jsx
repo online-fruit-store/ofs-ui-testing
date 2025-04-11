@@ -7,7 +7,7 @@ import AdminApp from "./AdminApp";
 import AdminHome from "./components/AdminHome";
 import Home from "./outlets/Home";
 import ErrorPage from "./outlets/ErrorPage";
-import Whatever from "./outlets/Whatever";
+import Whatever from "./outlets/Whatever
 const routes = [
   {
     path: "/",
@@ -27,6 +27,10 @@ const routes = [
     element: <AdminApp />,
     children: [{ index: true, element: <AdminHome /> }],
   },
+  {
+    path: "/Whatever",
+    element: <Whatever />
+  }
 ];
 
 export default routes;
