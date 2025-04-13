@@ -47,11 +47,11 @@ services:
       - ./backend:/app
       - /app/node_modules
     environment:
-      - HOST=${DB_HOST?REQUIRED}
-      - USER=${DB_USER?REQUIRED}
-      - DB=${DB_NAME?REQUIRED}
-      - PW=${DB_PASSWORD?REQUIRED}
-      - PORTDB=${DB_PORT?REQUIRED}
+      - DB_HOST=${DB_HOST?REQUIRED}
+      - DB_USER=${DB_USER?REQUIRED}
+      - DB_NAME=${DB_NAME?REQUIRED}
+      - DB_PASSWORD=${DB_PASSWORD?REQUIRED}
+      - DB_PORT=${DB_PORT?REQUIRED}
       - PORT=${PORT?REQUIRED}
     depends_on:
       db:

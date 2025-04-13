@@ -34,7 +34,7 @@ app.get("/users", async (req, res) => {
 });
 
 app.get("/", (_req, res) => {
-  res.send("File upload server is running.");
+  res.send("Backend server is running.");
 });
 
 app.listen(process.env.PORT, () =>
