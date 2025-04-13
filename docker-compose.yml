@@ -1,0 +1,83 @@
+name: ofs
+services:
+  db:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD?REQUIRED}
+      - POSTGRES_USER=${DB_USER?REQUIRED}
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
+  bucket:
+    build:
+      context: ./store
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./store:/app
+      - /app/node_modules
+    depends_on:
+      db:
+        condition: service_healthy
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - HOST=${DB_HOST?REQUIRED}
+      - USER=${DB_USER?REQUIRED}
+      - DB=${DB_NAME?REQUIRED}
+      - PW=${DB_PASSWORD?REQUIRED}
+      - PORTDB=${DB_PORT?REQUIRED}
+      - PORT=${PORT?REQUIRED}
+    depends_on:
+      db:
+        condition: service_healthy
+      bucket:
+        condition: service_healthy  
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 5173:5173
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5173/"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      db:
+        condition: service_healthy
+      bucket:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
+
+      

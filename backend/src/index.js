@@ -33,6 +33,10 @@ app.get("/users", async (req, res) => {
   res.json(users);
 });
 
+app.get("/", (_req, res) => {
+  res.send("File upload server is running.");
+});
+
 app.listen(process.env.PORT, () =>
   console.log(`Example app is listening on port ${process.env.PORT}`)
 );
