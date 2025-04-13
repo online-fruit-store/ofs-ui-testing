@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { CartContext } from "../contexts/CartContext";
 
 export default function Checkout() {
@@ -10,6 +10,16 @@ export default function Checkout() {
 
   function calculateSubtotal() {
     return cart.reduce((sum, p) => sum + p.price, 0);
+  }
+
+  function calculateTax() {
+    return calculateSubtotal() * 0.1025;
+  }
+
+  function calculateTotal() {
+    const subtotal = calculateSubtotal(cart);
+    const tax = calculateTax(subtotal);
+    return subtotal + tax;
   }
 
   return (
@@ -64,19 +74,19 @@ export default function Checkout() {
           <ul className="py-5 flex grow flex-col gap-5">
             <li className="flex justify-between">
               <div>Subtotal</div>
-              <div>${calculateSubtotal()}</div>
+              <div>${calculateSubtotal().toFixed(2)}</div>
             </li>
             <li className="flex justify-between">
               <div>Shipping estimate</div>
-              <div>$14.00</div>
+              <div>$0.00</div>
             </li>
             <li className="flex justify-between">
               <div>Tax estimate</div>
-              <div>$28.00</div>
+              <div>${calculateTax().toFixed(2)}</div>
             </li>
             <li className="flex justify-between text-3xl">
               <div>Order total</div>
-              <div>$100.00</div>
+              <div>${calculateTotal().toFixed(2)}</div>
             </li>
           </ul>
         </div>
