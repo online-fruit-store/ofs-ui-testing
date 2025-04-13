@@ -42,6 +42,15 @@ export default function ProductCard({ name, price, url }) {
   function decreaseQty() {
     if (qty > 1) {
       setQty(qty - 1);
+      setCart(
+        cart.map((p) => {
+          if (p.name === name) {
+            return { ...p, qty: p.qty - 1 };
+          } else {
+            return p;
+          }
+        })
+      );
     } else {
       setActiveComponent(0);
     }
@@ -50,6 +59,15 @@ export default function ProductCard({ name, price, url }) {
   function increaseQty() {
     if (qty < 50) {
       setQty(qty + 1);
+      setCart(
+        cart.map((p) => {
+          if (p.name === name) {
+            return { ...p, qty: p.qty + 1 };
+          } else {
+            return p;
+          }
+        })
+      );
     }
   }
 

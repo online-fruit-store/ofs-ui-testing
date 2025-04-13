@@ -7,7 +7,7 @@ import AdminApp from "./AdminApp";
 import AdminHome from "./components/AdminHome";
 import Home from "./outlets/Home";
 import ErrorPage from "./outlets/ErrorPage";
-import Whatever from "./outlets/Whatever
+import Whatever from "./outlets/Whatever";
 const routes = [
   {
     path: "/",
@@ -19,7 +19,6 @@ const routes = [
       { path: "products", element: <AllProducts /> },
       { path: "products/:productName", element: <ProductPage /> },
       { path: "Checkout", element: <Checkout /> },
-      {path: "Whatever", element: <Whatever /> }
     ],
   },
   {
@@ -29,8 +28,8 @@ const routes = [
   },
   {
     path: "/Whatever",
-    element: <Whatever />
-  }
+    element: <Whatever />,
+  },
 ];
 
 export default routes;

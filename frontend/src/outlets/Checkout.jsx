@@ -3,6 +3,15 @@ import { CartContext } from "../contexts/CartContext";
 
 export default function Checkout() {
   const { cart, setCart } = useContext(CartContext);
+
+  function removeFromCart(product) {
+    setCart(cart.filter((p) => p.name !== product.name));
+  }
+
+  function calculateSubtotal() {
+    return cart.reduce((sum, p) => sum + p.price, 0);
+  }
+
   return (
     <div className="flex flex-row grow">
       <div className="flex basis-1/2 justify-center py-10">
@@ -36,6 +45,7 @@ export default function Checkout() {
                     <div className="flex">
                       <button
                         type="button"
+                        onClick={() => removeFromCart(product)}
                         className="font-medium text-red-600 hover:text-red-500 hover:cursor-pointer"
                       >
                         Remove
@@ -49,8 +59,26 @@ export default function Checkout() {
         </div>
       </div>
       <div className="basis-1/2 flex py-30 justify-center rounded-lg">
-        <div className="bg-gray-50 w-144 h-96 rounded-md p-8 text-gray-900 font-medium text-lg">
+        <div className="bg-gray-50 w-144 h-96 rounded-md p-8 text-gray-900 font-medium text-2xl">
           Order Summary
+          <ul className="py-5 flex grow flex-col gap-5">
+            <li className="flex justify-between">
+              <div>Subtotal</div>
+              <div>${calculateSubtotal()}</div>
+            </li>
+            <li className="flex justify-between">
+              <div>Shipping estimate</div>
+              <div>$14.00</div>
+            </li>
+            <li className="flex justify-between">
+              <div>Tax estimate</div>
+              <div>$28.00</div>
+            </li>
+            <li className="flex justify-between text-3xl">
+              <div>Order total</div>
+              <div>$100.00</div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
