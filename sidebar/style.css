@@ -1,0 +1,58 @@
+/* Ensuring full height of the body */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Shorten the sidebar to 300px from the top */
+  .Sidebar {
+    height: calc(100vh - 100px);  /* Set a fixed height */
+    width: 250px;
+    background: teal;
+    position: fixed;  /* Keeps it at the top of the page */
+    left: 0;
+    top: 130px;  /* Start from the very top */
+  }
+  
+  /* Sidebar content */
+  .SidebarList {
+    height: 100%;  /* Take up full height of the Sidebar */
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .SidebarList .row {
+    width: 100%;
+    height: 60px;
+    list-style-type: none;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  
+  .SidebarList .row:hover {
+    cursor: pointer;
+    background-color: black;
+  }
+  
+  /* Button style for positioning */
+  button {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1000;
+  }
