@@ -30,15 +30,15 @@ export default function Registration() {
             </div>
             <div>
               <label
-                htmlFor="firstName"
+                htmlFor="lastName"
                 className="block text-sm/6 font-medium text-gray-900"
               >
                 Last Name
               </label>
               <div className="mt-2">
                 <input
-                  id="firstName"
-                  name="firstName"
+                  id="lastName"
+                  name="lastName"
                   type="text"
                   required
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"

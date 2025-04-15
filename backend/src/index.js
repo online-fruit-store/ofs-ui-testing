@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.post("/register", async (req, res, next) => {
   try {
     console.log(req.body);
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password, password2 } = req.body;
     await pool.query(
       "INSERT INTO userspace (first_name, last_name, email, password) VALUES ($1, $2, $3, $4)",
       [firstName, lastName, email, password]
