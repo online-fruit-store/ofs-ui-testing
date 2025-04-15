@@ -10,8 +10,6 @@ export default function ProductPage() {
     isLoading,
     error,
   } = useFetch(`${BASE_URL}/${productName}`);
-  console.log(`${BASE_URL}/${productName}`);
-  console.log(product);
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!product) return <div>Product not found</div>;
