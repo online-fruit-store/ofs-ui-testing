@@ -10,23 +10,87 @@ const db = require("./db/query");
 const cors = require("cors");
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
+passport.use(
+  new LocalStrategy(
+    { usernameField: "email", passReqToCallback: true },
+    async (req, email, password, done) => {
+      try {
+        const { rows } = await pool.query(
+          "SELECT * FROM userspace WHERE email = $1",
+          [email]
+        );
+        const user = rows[0];
+
+        if (!user) {
+          return done(null, false, { message: "Incorrect email" });
+        }
+        if (user.password !== password) {
+          return done(null, false, { message: "Incorrect password" });
+        }
+
+        return done(null, user);
+      } catch (err) {
+        return done(err);
+      }
+    }
+  )
+);
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const { rows } = await pool.query("SELECT * FROM userspace WHERE id = $1", [
+      id,
+    ]);
+    const user = rows[0];
+
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+});
+
 app.post("/register", async (req, res, next) => {
   try {
-    console.log(req.body);
-    const { firstName, lastName, email, password, password2 } = req.body;
+    const { firstName, lastName, userName, email, password, password2 } =
+      req.body;
     await pool.query(
-      "INSERT INTO userspace (first_name, last_name, email, password) VALUES ($1, $2, $3, $4)",
-      [firstName, lastName, email, password]
+      "INSERT INTO userspace (first_name, last_name, username, email, password) VALUES ($1, $2, $3, $4, $5)",
+      [firstName, lastName, userName, email, password]
     );
-    res.redirect("/");
+    res.redirect("http://localhost:5173/");
   } catch (err) {
     return next(err);
+  }
+});
+
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "http://localhost:5173/",
+    failureRedirect: "http://localhost:5173/404",
+  })
+);
+
+app.get("/auth/status", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({ loggedIn: true, user: req.user });
+  } else {
+    res.json({ loggedIn: false });
   }
 });
 
