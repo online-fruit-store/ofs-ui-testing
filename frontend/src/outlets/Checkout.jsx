@@ -25,11 +25,11 @@ export default function Checkout() {
   return (
     <div className="flex flex-row grow">
       <div className="flex basis-1/2 justify-center py-10">
-        <div className="flow-root">
+        <div className="flex grow justify-center px-20 py-10 flow-root">
           <ul role="list" className="-my-6 divide-y divide-gray-200">
             {cart.map((product) => (
               <li key={product.id} className="flex py-6">
-                <div className="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
+                <div className="size-32 shrink-0 overflow-hidden rounded-md border border-gray-200">
                   <img
                     alt={product.imageAlt}
                     src={product.url}

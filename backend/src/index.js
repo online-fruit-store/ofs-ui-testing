@@ -86,6 +86,15 @@ app.post(
   })
 );
 
+app.get("/logout", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("http://localhost:5173/");
+  });
+});
+
 app.get("/auth/status", (req, res) => {
   if (req.isAuthenticated()) {
     res.json({ loggedIn: true, user: req.user });
