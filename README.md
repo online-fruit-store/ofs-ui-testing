@@ -5,9 +5,3 @@ in its current state, the front page has 8 products allowing for quantity inputs
 ![alt text](frontpage.png)
 
 ![alt text](checkout.png)
-
-=================================================================================
-Backend installation:
-cd backend
-npm install
-npm start
