@@ -2,13 +2,14 @@ import App from "./App";
 import Auth from "./outlets/Auth";
 import AllProducts from "./components/Major/AllProducts";
 import ProductPage from "./outlets/ProductPage";
-import Checkout from "./outlets/Checkout";
+import ShoppingCart from "./outlets/ShoppingCart";
 import AdminApp from "./AdminApp";
 import AdminHome from "./components/AdminHome";
 import Home from "./outlets/Home";
 import ErrorPage from "./outlets/ErrorPage";
 import Whatever from "./outlets/Whatever";
 import Logout from "./components/Logout";
+import Checkout from "./outlets/Checkout";
 const routes = [
   {
     path: "/",
@@ -19,8 +20,9 @@ const routes = [
       { path: "Auth", element: <Auth /> },
       { path: "products", element: <AllProducts /> },
       { path: "products/:productName", element: <ProductPage /> },
-      { path: "Checkout", element: <Checkout /> },
+      { path: "ShoppingCart", element: <ShoppingCart /> },
       { path: "Logout", element: <Logout /> },
+      { path: "Checkout", element: <Checkout /> },
     ],
   },
   {

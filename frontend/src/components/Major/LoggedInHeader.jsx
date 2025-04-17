@@ -38,7 +38,7 @@ export default function LoggedInHeader() {
           </li>
           <li>
             <DropdownCart
-              link={"/Checkout"}
+              link={"/ShoppingCart"}
               text="Cart"
               className="relative inline-block"
             />

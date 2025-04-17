@@ -103,7 +103,7 @@ export default function ProductCard({ name, price, weight, url }) {
         <p>
          ${price}
           {weight != null && (
-            <span className="text-gray-500 text-sm"> / {weight}</span>
+            <span className="text-gray-500 text-sm"> / {weight} lbs</span>
           )}
         </p>
         {activeComponent ? buttonControls[1] : buttonControls[0]}

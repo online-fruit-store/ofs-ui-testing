@@ -32,7 +32,6 @@ function Dropdown({ text, className, link }) {
               Total Items:{" "}
               {cart.reduce((total, product) => total + product.qty, 0)}
             </div>
-            <button className="border-1 rounded-sm">Checkout</button>
           </li>
         </ul>
       )}
