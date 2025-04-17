@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="flex flex-col grow min-h-screen relative">
       {auth.loggedIn ? <LoggedInHeader /> : <Header />}
-      <div className="flex pt-20 grow">
+      <div className="flex pt-20 grow min-h-screen">
         <Outlet />
       </div>
       <Footer />
