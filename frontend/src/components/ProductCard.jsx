@@ -7,7 +7,6 @@ export default function ProductCard({ name, price, weight, url }) {
   const { cart, setCart } = useContext(CartContext);
   const [activeComponent, setActiveComponent] = useState(0);
   const [qty, setQty] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
 
   const buttonControls = [
     <form
@@ -84,7 +83,10 @@ export default function ProductCard({ name, price, weight, url }) {
         })
       );
     } else {
-      setCart([...cart, { name: name, qty: 1, price: price, weight: weight, url: url }]);
+      setCart([
+        ...cart,
+        { name: name, qty: 1, price: price, weight: weight, url: url },
+      ]);
     }
     setQty(1);
     setActiveComponent(1);
@@ -101,7 +103,7 @@ export default function ProductCard({ name, price, weight, url }) {
       <div className="flex items-center justify-center flex-col gap-5">
         <p className="font-semibold">{name}</p>
         <p>
-         ${price}
+          ${price}
           {weight != null && (
             <span className="text-gray-500 text-sm"> / {weight} lbs</span>
           )}

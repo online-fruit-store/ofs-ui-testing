@@ -7,7 +7,7 @@ import React from "react";
 
 export default function Home() {
   return (
-    <div className="grow rounded-md mx-40 bg-gray-100 ">
+    <div className="grow items-center justify-center">
       <h1 className="flex py-20 text-5xl align-center justify-center font-bold font-stretch-ultra-expanded text-gray-700">
         Welcome to Spartan Food Store!
       </h1>
