@@ -66,11 +66,10 @@ passport.deserializeUser(async (id, done) => {
 
 app.post("/register", async (req, res, next) => {
   try {
-    const { firstName, lastName, userName, email, password, password2 } =
-      req.body;
+    const { firstName, lastName, email, password } = req.body;
     await pool.query(
-      "INSERT INTO userspace (first_name, last_name, username, email, password) VALUES ($1, $2, $3, $4, $5)",
-      [firstName, lastName, userName, email, password]
+      "INSERT INTO userspace (first_name, last_name, email, password) VALUES ($1, $2, $3, $4)",
+      [firstName, lastName, email, password]
     );
     res.redirect("http://localhost:5173/");
   } catch (err) {
