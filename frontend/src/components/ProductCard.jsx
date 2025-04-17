@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
 import { CartContext } from "../contexts/CartContext";
 
-export default function ProductCard({ name, price, url }) {
+export default function ProductCard({ name, price, weight, url }) {
   const { cart, setCart } = useContext(CartContext);
   const [activeComponent, setActiveComponent] = useState(0);
   const [qty, setQty] = useState(0);
@@ -84,7 +84,7 @@ export default function ProductCard({ name, price, url }) {
         })
       );
     } else {
-      setCart([...cart, { name: name, qty: 1, price: price, url: url }]);
+      setCart([...cart, { name: name, qty: 1, price: price, weight: weight, url: url }]);
     }
     setQty(1);
     setActiveComponent(1);
@@ -100,7 +100,12 @@ export default function ProductCard({ name, price, url }) {
 
       <div className="flex items-center justify-center flex-col gap-5">
         <p className="font-semibold">{name}</p>
-        <p>${price}</p>
+        <p>
+         ${price}
+          {weight != null && (
+            <span className="text-gray-500 text-sm"> / {weight}</span>
+          )}
+        </p>
         {activeComponent ? buttonControls[1] : buttonControls[0]}
       </div>
     </div>

@@ -50,8 +50,8 @@ export default function Checkout() {
                     </p>
                   </div>
                   <div className="flex flex-1 items-end justify-between text-sm">
-                    <p className="text-gray-500">Qty {product.qty}</p>
-
+                    <p className="text-gray-500">Qty: {product.qty} // Weight: {(product.weight * product.qty).toFixed(2)} lbs</p>
+                    
                     <div className="flex">
                       <button
                         type="button"

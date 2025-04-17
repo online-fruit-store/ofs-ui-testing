@@ -55,6 +55,7 @@ export default function Main() {
           <ProductCard
             name={product.name}
             price={product.price}
+            weight={product.weight}
             url={product.img_url}
             key={product.name}
           />

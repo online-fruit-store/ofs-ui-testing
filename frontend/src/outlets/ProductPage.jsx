@@ -23,6 +23,7 @@ export default function ProductPage() {
         className="w-64 h-64 object-cover my-4"
       />
       <p className="text-xl text-gray-700">Price: ${product.price}</p>
+      <p className="text-xl text-gray-700">Weight: {product.weight} lbs</p>
       <p className="text-lg">Some description here</p>
     </div>
   );
