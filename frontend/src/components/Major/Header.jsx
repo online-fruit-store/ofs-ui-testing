@@ -28,17 +28,17 @@ export default function Header() {
             />
           </li>
           <li>
-            <Dropdown
-              text="Login"
-              className="relative inline-block"
-              link={"/Auth"}
-            />
-          </li>
-          <li>
             <DropdownCart
               link={"/Checkout"}
               text="Cart"
               className="relative inline-block"
+            />
+          </li>
+          <li>
+            <Dropdown
+              text="Login / Register"
+              className="relative inline-block"
+              link={"/Auth"}
             />
           </li>
         </ul>

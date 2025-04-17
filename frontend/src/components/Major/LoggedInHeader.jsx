@@ -3,8 +3,11 @@ import Dropdown from "../Dropdown";
 import DropdownCart from "../DropdownCart";
 import SearchBar from "../SearchBar";
 import { Link } from "react-router-dom";
-
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 export default function LoggedInHeader() {
+  const { auth } = useContext(AuthContext);
+  console.log(auth.user.first_name);
   return (
     <div className="flex gap-10 p-1 shadow-sm bg-red-500 fixed w-full">
       <Link to="/">
@@ -22,16 +25,15 @@ export default function LoggedInHeader() {
         <ul className="flex">
           <li>
             <Dropdown
-              text="Products"
+              text={"Welcome " + auth.user.first_name}
               className="relative inline-block"
-              link={"/products"}
             />
           </li>
           <li>
             <Dropdown
-              text="Login"
+              text="Products"
               className="relative inline-block"
-              link={"/Auth"}
+              link={"/products"}
             />
           </li>
           <li>

@@ -9,7 +9,7 @@ export default function Checkout() {
   }
 
   function calculateSubtotal() {
-    return cart.reduce((sum, p) => sum + p.price, 0);
+    return cart.reduce((sum, p) => sum + p.price * p.qty, 0);
   }
 
   function calculateTax() {
