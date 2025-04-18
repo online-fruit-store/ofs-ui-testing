@@ -18,12 +18,15 @@ export default function Checkout() {
     return calculateSubtotal() * 0.1025;
   }
 
-  
+ function calculateShipping(){
+  return cart.reduce((weight, p) => weight + p.weight*p.qty,0) > 5 ? 5 : 0;
+ } 
 
   function calculateTotal() {
     const subtotal = calculateSubtotal(cart);
     const tax = calculateTax(subtotal);
-    return subtotal + tax;
+    const shipping = calculateShipping();
+    return subtotal + tax + shipping;
   }
 
   return (
@@ -82,7 +85,7 @@ export default function Checkout() {
             </li>
             <li className="flex justify-between">
               <div>Shipping estimate</div>
-              <div>$0.00</div>
+              <div>${calculateShipping().toFixed(2)}</div>
             </li>
             <li className="flex justify-between">
               <div>Tax estimate</div>
@@ -98,7 +101,7 @@ export default function Checkout() {
               to="/Checkout"             
               className="flex w-full items-center justify-center rounded-md bg-red-600 px-6 py-3 text-base font-semibold text-white shadow hover:bg-emerald-700"
             >
-              Proceed to Checkout
+              Proceed
             </Link>
           </div>
         </div>
