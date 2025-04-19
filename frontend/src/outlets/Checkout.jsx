@@ -22,6 +22,18 @@ export default function ActuallyCheckout() {
     setCart(cart.filter((p) => p.name !== product.name));
   }
 
+  function adjustQty(p, adjQty) {
+    setCart(
+      cart.map((product) => {
+        if (product.name === p.name) {
+          return { ...p, qty: adjQty };
+        } else {
+          return product;
+        }
+      })
+    );
+  }
+
   const deliverySlots = [
     {
       id: "today",
@@ -104,8 +116,24 @@ export default function ActuallyCheckout() {
                   <div className="ml-4 flex-1">
                     <h3 className="text-lg font-semibold">{p.name}</h3>
                     <p className="text-sm text-gray-500">{p.color}</p>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Qty: <strong>{p.qty}</strong>
+                    <p className="text-sm text-gray-600 mt-1 flex flex-row gap-2">
+                      <div>Qty:</div>
+                      <select
+                        className="border rounded-sm"
+                        value={p.qty}
+                        onChange={(e) => adjustQty(p, e.target.value)}
+                      >
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                      </select>
                     </p>
                     <p className="text-sm text-gray-600">
                       Weight: {(p.weight * p.qty).toFixed(2)} lbs
