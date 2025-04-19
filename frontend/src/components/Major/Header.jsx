@@ -29,7 +29,7 @@ export default function Header() {
           </li>
           <li>
             <DropdownCart
-              link={"/ShoppingCart"}
+              link={"/Checkout"}
               text="Cart"
               className="relative inline-block"
             />

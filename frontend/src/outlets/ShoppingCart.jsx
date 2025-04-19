@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { CartContext } from "../contexts/CartContext";
 import { Link } from "react-router-dom";
 
-
 export default function Checkout() {
   const { cart, setCart } = useContext(CartContext);
 
@@ -18,9 +17,11 @@ export default function Checkout() {
     return calculateSubtotal() * 0.1025;
   }
 
- function calculateShipping(){
-  return cart.reduce((weight, p) => weight + p.weight*p.qty,0) > 5 ? 5 : 0;
- } 
+  function calculateShipping() {
+    return cart.reduce((weight, p) => weight + p.weight * p.qty, 0) > 20
+      ? 5
+      : 0;
+  }
 
   function calculateTotal() {
     const subtotal = calculateSubtotal(cart);
@@ -57,8 +58,11 @@ export default function Checkout() {
                     </p>
                   </div>
                   <div className="flex flex-1 items-end justify-between text-sm">
-                    <p className="text-gray-500">Qty: {product.qty} // Weight: {(product.weight * product.qty).toFixed(2)} lbs</p>
-                    
+                    <p className="text-gray-500">
+                      Qty: {product.qty} // Weight:{" "}
+                      {(product.weight * product.qty).toFixed(2)} lbs
+                    </p>
+
                     <div className="flex">
                       <button
                         type="button"
@@ -98,7 +102,7 @@ export default function Checkout() {
           </ul>
           <div className="mt-6">
             <Link
-              to="/Checkout"             
+              to="/Checkout"
               className="flex w-full items-center justify-center rounded-md bg-red-600 px-6 py-3 text-base font-semibold text-white shadow hover:bg-emerald-700"
             >
               Proceed

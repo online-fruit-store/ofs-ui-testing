@@ -2,7 +2,7 @@ import App from "./App";
 import Auth from "./outlets/Auth";
 import AllProducts from "./components/Major/AllProducts";
 import ProductPage from "./outlets/ProductPage";
-import ShoppingCart from "./outlets/ShoppingCart";
+// import ShoppingCart from "./outlets/ShoppingCart"; Removed in favor of Checkout 4/19/2025 - Ivan
 import AdminApp from "./AdminApp";
 import AdminHome from "./components/AdminHome";
 import Home from "./outlets/Home";
@@ -20,7 +20,7 @@ const routes = [
       { path: "Auth", element: <Auth /> },
       { path: "products", element: <AllProducts /> },
       { path: "products/:productName", element: <ProductPage /> },
-      { path: "ShoppingCart", element: <ShoppingCart /> },
+      // { path: "ShoppingCart", element: <ShoppingCart /> }, Removed in favor of Checkout 4/19/2025 - Ivan
       { path: "Logout", element: <Logout /> },
       { path: "Checkout", element: <Checkout /> },
     ],

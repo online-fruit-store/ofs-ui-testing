@@ -2,6 +2,7 @@ import AddToCart from "./AddToCart";
 import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
 import { CartContext } from "../contexts/CartContext";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function ProductCard({ name, price, weight, url }) {
   const { cart, setCart } = useContext(CartContext);
@@ -9,18 +10,14 @@ export default function ProductCard({ name, price, weight, url }) {
   const [qty, setQty] = useState(0);
 
   const buttonControls = [
-    <form
-      className="flex flex-col items-center justify-center gap-1"
-      action={addToCart}
-    >
-      <button
-        type="submit"
-        className="border-2 border-none px-2 py-1 bg-red-500 text-white text-sm rounded-lg cursor-pointer hover:bg-red-600
+    <button
+      type="submit"
+      onClick={addToCart}
+      className="border-2 border-none px-2 py-1 bg-red-500 text-white text-sm rounded-lg cursor-pointer hover:bg-red-600
           transition delay-150 duration-300 ease-in-out hover:-translate-y-0.5 hover:scale-110"
-      >
-        Add to Cart
-      </button>
-    </form>,
+    >
+      Add to Cart
+    </button>,
     <div className="flex gap-3">
       <button
         onClick={decreaseQty}
@@ -72,6 +69,7 @@ export default function ProductCard({ name, price, weight, url }) {
 
   function addToCart() {
     let product = cart.find((p) => p.name === name);
+    toast(`${name} added to cart!`);
     if (product) {
       setCart(
         cart.map((p) => {
@@ -88,6 +86,7 @@ export default function ProductCard({ name, price, weight, url }) {
         { name: name, qty: 1, price: price, weight: weight, url: url },
       ]);
     }
+
     setQty(1);
     setActiveComponent(1);
   }

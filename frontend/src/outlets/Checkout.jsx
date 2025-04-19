@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../contexts/CartContext";
 
-
 function getFormattedDate(offsetDays) {
   const date = new Date();
   date.setDate(date.getDate() + offsetDays);
@@ -10,9 +9,8 @@ function getFormattedDate(offsetDays) {
 }
 
 export default function ActuallyCheckout() {
-  const { cart } = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext);
   const [deliveryOption, setDeliveryOption] = useState("tomorrow");
-
 
   const subtotal = cart.reduce((sum, p) => sum + p.price * p.qty, 0);
   const tax = subtotal * 0.1025;
@@ -20,6 +18,9 @@ export default function ActuallyCheckout() {
   const deliveryFee = totalWeight < 20 ? 0 : 5;
   const orderTotal = subtotal + tax + deliveryFee;
 
+  function removeFromCart(product) {
+    setCart(cart.filter((p) => p.name !== product.name));
+  }
 
   const deliverySlots = [
     {
@@ -29,10 +30,8 @@ export default function ActuallyCheckout() {
     },
   ];
 
-
   return (
     <div className="w-screen min-h-screen bg-gray-100 flex flex-col lg:flex-row gap-6 p-8">
-
       {/*Delivery options column TO BE FINISHED: need to make buttons actually do something*/}
       <div className="w-full lg:w-96 bg-white rounded-md shadow-md p-6 mb-6 lg:mb-0">
         <h2 className="text-xl font-semibold mb-4 border-b pb-2">
@@ -85,7 +84,6 @@ export default function ActuallyCheckout() {
         </form>
       </div>
 
-
       <div className="flex-1 flex flex-col lg:flex-row gap-6">
         {/*review items column: maybe make smaller?*/}
         <div className="flex-1 bg-white rounded-md shadow-md p-6">
@@ -110,11 +108,20 @@ export default function ActuallyCheckout() {
                       Qty: <strong>{p.qty}</strong>
                     </p>
                     <p className="text-sm text-gray-600">
-                      Weight: {(p.weight * p.qty).toFixed(2)} lbs
+                      Weight: {(p.weight * p.qty).toFixed(2)} lbs
                     </p>
-                    <p className="mt-1 text-md font-medium text-gray-900">
-                      ${(p.price * p.qty).toFixed(2)}
-                    </p>
+                    <div className="flex justify-between">
+                      <p className="mt-1 text-md font-medium text-gray-900">
+                        ${(p.price * p.qty).toFixed(2)}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => removeFromCart(p)}
+                        className="font-medium text-red-600 hover:text-red-500 hover:cursor-pointer"
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
                 </li>
               ))}
