@@ -117,11 +117,11 @@ export default function ActuallyCheckout() {
                     <h3 className="text-lg font-semibold">{p.name}</h3>
                     <p className="text-sm text-gray-500">{p.color}</p>
                     <p className="text-sm text-gray-600 mt-1 flex flex-row gap-2">
-                      <div>Qty:</div>
+                      <label>Qty:</label>
                       <select
                         className="border rounded-sm"
                         value={p.qty}
-                        onChange={(e) => adjustQty(p, e.target.value)}
+                        onChange={(e) => adjustQty(p, Number(e.target.value))}
                       >
                         <option value="1">1</option>
                         <option value="2">2</option>

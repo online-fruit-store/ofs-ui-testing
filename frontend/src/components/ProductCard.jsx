@@ -21,13 +21,13 @@ export default function ProductCard({ name, price, weight, url }) {
     <div className="flex gap-3">
       <button
         onClick={decreaseQty}
-        className="border-2 border-none px-2 py-1 bg-red-500 text-white text-sm rounded-lg cursor-pointer hover:bg-red-600"
+        className="border-2 border-none px-2 py-1 bg-red-500 text-white text-sm rounded-sm cursor-pointer hover:bg-red-600"
       >
         -
       </button>
-      <div className="bg-white border rounded-lg px-2">{qty}</div>
+      <div className="bg-white border rounded-md px-2">{qty}</div>
       <button
-        className="border-2 border-none px-2 py-1 bg-red-500 text-white text-sm rounded-lg cursor-pointer hover:bg-red-600"
+        className="border-2 border-none px-2 py-1 bg-red-500 text-white text-sm rounded-sm cursor-pointer hover:bg-red-600"
         onClick={increaseQty}
       >
         +

@@ -3,6 +3,7 @@ import Dropdown from "../Dropdown";
 import DropdownCart from "../DropdownCart";
 import SearchBar from "../SearchBar";
 import { Link } from "react-router-dom";
+import { ShoppingCart } from "lucide-react";
 
 export default function Header() {
   return (
