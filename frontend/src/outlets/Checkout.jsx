@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../contexts/CartContext";
+import { useNavigate } from "react-router-dom";
 
 function getFormattedDate(offsetDays) {
   const date = new Date();
@@ -8,9 +9,12 @@ function getFormattedDate(offsetDays) {
   return date.toLocaleDateString("en-US", options);
 }
 
-export default function ActuallyCheckout() {
+export default function Checkout() {
+  // <- FIXED name here
+
   const { cart, setCart } = useContext(CartContext);
   const [deliveryOption, setDeliveryOption] = useState("tomorrow");
+  const navigate = useNavigate();
 
   const subtotal = cart.reduce((sum, p) => sum + p.price * p.qty, 0);
   const tax = subtotal * 0.1025;
@@ -44,7 +48,7 @@ export default function ActuallyCheckout() {
 
   return (
     <div className="w-screen min-h-screen bg-gray-100 flex flex-col lg:flex-row gap-6 p-8">
-      {/*Delivery options column TO BE FINISHED: need to make buttons actually do something*/}
+      {/* Delivery options column */}
       <div className="w-full lg:w-96 bg-white rounded-md shadow-md p-6 mb-6 lg:mb-0">
         <h2 className="text-xl font-semibold mb-4 border-b pb-2">
           Choose Your Delivery Option
@@ -69,14 +73,10 @@ export default function ActuallyCheckout() {
                   <span className="font-medium">{opt.label}</span>
                   <span className="ml-2 text-gray-600">{opt.costTag}</span>
                 </div>
-                {opt.note && (
-                  <p className="text-sm text-gray-500 mt-1">{opt.note}</p>
-                )}
               </div>
             </label>
           ))}
 
-          {/*pickup option TO BE FINISHED: need to make buttons actually do something */}
           <label className="flex items-start p-4 cursor-pointer hover:bg-gray-50">
             <input
               type="radio"
@@ -97,7 +97,7 @@ export default function ActuallyCheckout() {
       </div>
 
       <div className="flex-1 flex flex-col lg:flex-row gap-6">
-        {/*review items column: maybe make smaller?*/}
+        {/* Review items column */}
         <div className="flex-1 bg-white rounded-md shadow-md p-6">
           <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
             Review Items
@@ -123,16 +123,11 @@ export default function ActuallyCheckout() {
                         value={p.qty}
                         onChange={(e) => adjustQty(p, Number(e.target.value))}
                       >
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
+                        {[...Array(10).keys()].map((i) => (
+                          <option key={i + 1} value={i + 1}>
+                            {i + 1}
+                          </option>
+                        ))}
                       </select>
                     </p>
                     <p className="text-sm text-gray-600">
@@ -157,7 +152,7 @@ export default function ActuallyCheckout() {
           )}
         </div>
 
-        {/*Order summary column: xxx*/}
+        {/* Order summary column */}
         <div className="w-full lg:w-100 bg-white rounded-md shadow-md p-6 h-fit">
           <h2 className="text-xl font-semibold mb-4 border-b pb-2">
             Order Summary
@@ -177,7 +172,7 @@ export default function ActuallyCheckout() {
             </li>
             <li className="flex justify-between">
               <span>Total weight:</span>
-              <span>{totalWeight.toFixed(2)} lbs</span>
+              <span>{totalWeight.toFixed(2)} lbs</span>
             </li>
             <li className="flex justify-between font-bold text-lg border-t pt-3">
               <span>Order total:</span>
@@ -186,7 +181,17 @@ export default function ActuallyCheckout() {
           </ul>
           <button
             type="button"
-            onClick={() => alert("Will do later IM POOPED")}
+            onClick={() =>
+              navigate("/Receipt", {
+                state: {
+                  cartItems: cart.map((item) => ({
+                    ...item,
+                    quantity: item.qty,
+                  })),
+                  total: orderTotal,
+                },
+              })
+            }
             className="mt-6 w-full bg-red-400 hover:bg-yellow-500 text-gray-900 font-bold py-3 rounded-md shadow-md"
           >
             Place your order
