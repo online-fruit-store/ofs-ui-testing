@@ -1,5 +1,1 @@
 @import "tailwindcss";
-
-input {
-  @apply border-2 rounded-lg;
-}

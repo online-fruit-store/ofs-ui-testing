@@ -7,7 +7,6 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 export default function LoggedInHeader() {
   const { auth } = useContext(AuthContext);
-  console.log(auth.user.first_name);
   return (
     <div className="flex gap-10 p-1 shadow-sm bg-red-500 fixed w-full">
       <Link to="/">
@@ -17,11 +16,11 @@ export default function LoggedInHeader() {
         </div>
       </Link>
 
-      <div className="grow-7 flex items-center">
+      <div className="flex-auto flex items-center">
         <SearchBar />
       </div>
 
-      <div className="grow flex items-center">
+      <div className="flex items-center">
         <ul className="flex">
           <li>
             <Dropdown

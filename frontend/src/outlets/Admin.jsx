@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const BASE_URL = "http://localhost:3000";
 
 export default function Admin() {

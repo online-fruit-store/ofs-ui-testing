@@ -49,7 +49,7 @@ export default function Main() {
   }
 
   return (
-    <div className="grow grid grid-cols-4 gap-5 py-5 px-5">
+    <div className="w-full grid grid-cols-4 gap-5 py-8 px-4">
       {products.map((product) => {
         return (
           <ProductCard

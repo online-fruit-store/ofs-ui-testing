@@ -3,7 +3,7 @@ import Auth from "./outlets/Auth";
 import AllProducts from "./components/Major/AllProducts";
 import ProductPage from "./outlets/ProductPage";
 import AdminApp from "./AdminApp";
-import AdminHome from "./components/AdminHome";
+import AdminHome from "./components/Admin/AdminHome";
 import Home from "./outlets/Home";
 import ErrorPage from "./outlets/ErrorPage";
 import Whatever from "./outlets/Whatever";
