@@ -1,4 +1,5 @@
 import useFetch from "../../hooks/useFetch";
+import { Link } from "react-router-dom";
 const BASE_URL = "http://localhost:3000/products";
 export default function AdminHome() {
   const { data: products, isLoading, error } = useFetch(`${BASE_URL}`);
@@ -8,10 +9,18 @@ export default function AdminHome() {
 
   return (
     <>
-      <div>ADMIN</div>
       <div className="container ">
-        <div className="main-content flex flex-col gap-8 min-h-screen">
-          <div className="header flex gap-4 align-center">Products</div>
+        <div className="main-content flex flex-col gap-8 min-h-screen px-[1rem]">
+          <div className="header flex gap-[1rem] items-center">
+            <p className="text-2xl mb-[0.5rem]">Products</p>
+            <Link
+              to="#"
+              className="py-[0.25rem] px-[0.5rem] text-[0.875rem] border rounded-sm"
+            >
+              Add a product
+            </Link>
+          </div>
+
           <div className="sidebar-products grid grid-cols-[1fr_4fr]">
             <div></div>
             <div className="products-container grid grid-cols-[repeat(auto-fit,minmax(150px,190px))] items-start gap-[1rem] py-4 px-8">
@@ -31,8 +40,11 @@ export default function AdminHome() {
                       <p className="weight text-xs leading-[0.75rem]">
                         Weight: {p.weight} lbs
                       </p>
-                      <p className="qty text-xs leading-[0.75rem]">
-                        Quantity: {p.stock}
+                      <p className="flex qty text-xs leading-[0.75rem] justify-between">
+                        <p>Quantity: {p.stock}</p>
+                        <Link to="#" className="text-blue-700">
+                          Edit
+                        </Link>
                       </p>
                     </div>
                   </div>
