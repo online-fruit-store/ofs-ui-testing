@@ -28,9 +28,25 @@ export default function AdminHome() {
       }));
     };
 
-    const handleSave = () => {
-      console.log("Saving:", formData);
-      setEditing(false);
+    const handleSave = async () => {
+      try {
+        const res = await fetch(`${BASE_URL}/${product.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (!res.ok) throw new Error("Failed to update product");
+
+        const updatedProduct = await res.json();
+        console.log("Updated product:", updatedProduct);
+        setEditing(false);
+      } catch (err) {
+        console.error(err);
+        alert("Error saving product.");
+      }
     };
 
     return (
@@ -45,7 +61,7 @@ export default function AdminHome() {
             <>
               <div className="flex justify-between font-semibold px-[1rem] gap-1">
                 <input
-                  className="border rounded w-[90px]"
+                  className="border rounded px-1 w-[90px]"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}

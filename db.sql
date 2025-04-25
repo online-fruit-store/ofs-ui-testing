@@ -419,6 +419,7 @@ VALUES
 
 
 CREATE TABLE products (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name character varying(255),
     price real,
     weight real,

@@ -76,6 +76,34 @@ app.post("/register", async (req, res, next) => {
     return next(err);
   }
 });
+app.put("/products/:id", async (req, res) => {
+  const { id } = req.params;
+  const { name, price, weight, stock } = req.body;
+
+  try {
+    const result = await pool.query(
+      `
+      UPDATE products
+      SET name = $1,
+          price = $2,
+          weight = $3,
+          stock = $4
+      WHERE id = $5
+      RETURNING *;
+      `,
+      [name, price, weight, stock, id]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: "Server error" });
+  }
+});
 
 app.post(
   "/login",
