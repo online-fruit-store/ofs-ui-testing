@@ -142,8 +142,8 @@ export default function AdminHome() {
         <div className="header flex gap-[1rem] items-center">
           <p className="text-2xl mb-[0.5rem]">Products</p>
           <Link
-            to="#"
-            className="py-[0.25rem] px-[0.5rem] text-[0.875rem] border rounded-sm"
+            to="AddProduct"
+            className="py-[0.25rem] px-[0.5rem] text-[0.875rem] border rounded-sm bg-blue-200"
           >
             Add a product
           </Link>

@@ -10,7 +10,7 @@ import Whatever from "./outlets/Whatever";
 import Logout from "./components/Logout";
 import Checkout from "./outlets/Checkout"; // IMPORTANT: correct import!
 import Receipt from "./outlets/Receipt";
-
+import AdminAddProduct from "./components/Admin/AdminAddProduct";
 const routes = [
   {
     path: "/",
@@ -29,7 +29,10 @@ const routes = [
   {
     path: "Admin",
     element: <AdminApp />,
-    children: [{ index: true, element: <AdminHome /> }],
+    children: [
+      { index: true, element: <AdminHome /> },
+      { path: "AddProduct", element: <AdminAddProduct /> },
+    ],
   },
   {
     path: "/Whatever",
