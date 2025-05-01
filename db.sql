@@ -421,8 +421,8 @@ VALUES
 CREATE TABLE products (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name character varying(255),
-    price real,
-    weight real,
+    price numeric(10, 2),
+    weight numeric(6, 2),
     category character varying(255),
     stock integer,
     img_url character varying(255)
@@ -434,7 +434,7 @@ VALUES
 ('banana', 0.63, 0.3, 'fruit', 94, 'https://res.cloudinary.com/dezsecf8p/image/upload/f_auto,q_auto/v1/Backend%20Pictures/vxhy927yhdufovssspqu'),
 ('orange', 0.51, 0.4, 'fruit', 51, 'https://res.cloudinary.com/dezsecf8p/image/upload/f_auto,q_auto/v1/Backend%20Pictures/j37shkjjza3vuympome9'),
 ('pineapple', 0.73, 1.0, 'fruit', 97, 'https://res.cloudinary.com/dezsecf8p/image/upload/f_auto,q_auto/v1/Backend%20Pictures/a8fhbdqubjuxfmzpmrva'),
-('watermelon', 0.1, 3.5, 'fruit', 50, 'https://res.cloudinary.com/dezsecf8p/image/upload/f_auto,q_auto/v1/Backend%20Pictures/n1fkjcujnwjkmau9sj0o'),
+('watermelon', 0.10, 3.5, 'fruit', 50, 'https://res.cloudinary.com/dezsecf8p/image/upload/f_auto,q_auto/v1/Backend%20Pictures/n1fkjcujnwjkmau9sj0o'),
 ('cantaloupe', 0.15, 2.5, 'fruit', 36, 'https://res.cloudinary.com/dezsecf8p/image/upload/f_auto,q_auto/v1/Backend%20Pictures/r8jg63y0bwdriwswl9po'),
 ('kiwi', 0.71, 0.2, 'fruit', 60, 'https://res.cloudinary.com/dezsecf8p/image/upload/f_auto,q_auto/v1/Backend%20Pictures/tb1erz38rk5z234ls5id'),
 ('lettuce', 0.15, 1.0, 'vegetable', 60, 'https://res.cloudinary.com/dezsecf8p/image/upload/f_auto,q_auto/v1/Backend%20Pictures/yfpnxjxgi2jzigbejiad'),

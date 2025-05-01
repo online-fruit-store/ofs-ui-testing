@@ -49,18 +49,21 @@ export default function Main() {
   }
 
   return (
-    <div className="w-full grid grid-cols-4 gap-5 py-8 px-4">
-      {products.map((product) => {
-        return (
-          <ProductCard
-            name={product.name}
-            price={product.price}
-            weight={product.weight}
-            url={product.img_url}
-            key={product.name}
-          />
-        );
-      })}
+    <div className="w-full py-8 px-4">
+      <div className="mx-auto max-w-screen-2xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 justify-center">
+          {products.map((product) => (
+            <div key={product.name} className="flex justify-center">
+              <ProductCard
+                name={product.name}
+                price={product.price}
+                weight={product.weight}
+                url={product.img_url}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

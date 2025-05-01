@@ -22,14 +22,30 @@ function Dropdown({ text, className, link }) {
         <ul className="absolute -left-8 mt-0 w-48 bg-white border rounded shadow-lg">
           {cart.map((product) => {
             return (
-              <li className="px-4 py-2 hover:bg-gray-100">
-                {product.name} {product.qty}
+              <li className="px-4 py-2 hover:bg-gray-100 flex justify-between items-center">
+                <div>{"("}{product.qty}{") "} {product.name}</div>
+                <div>${product.price.toFixed(2)}</div>
               </li>
             );
           })}
-          <li className="px-4 py-2 hover:bg-gray-100 flex">
+          <div className="p-3">
+            <li className="border-b"></li>
+          </div>
+          <li className="px-4 py-2 hover:bg-gray-100 flex justify-between items-center">
             <div>
-              Total Items:{" "}
+              Subtotal:
+            </div>
+            <div>
+              ${""}
+              {cart.reduce((total, product) => total + (product.price), 0)}
+            </div>
+          </li>
+          <li className="px-4 py-2 hover:bg-gray-100 flex justify-between items-center">
+            <div>
+              Total Items:
+            </div>
+            <div>
+              {" "}
               {cart.reduce((total, product) => total + product.qty, 0)}
             </div>
           </li>

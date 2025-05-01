@@ -69,9 +69,9 @@ export default function Checkout() {
                 className="mt-1 mr-4"
               />
               <div>
-                <div className="flex items-baseline">
+                <div className="flex flex-col">
                   <span className="font-medium">{opt.label}</span>
-                  <span className="ml-2 text-gray-600">{opt.costTag}</span>
+                  <span className="text-sm text-gray-500 mt-1">{opt.costTag}</span>
                 </div>
               </div>
             </label>
@@ -131,7 +131,7 @@ export default function Checkout() {
                       </select>
                     </p>
                     <p className="text-sm text-gray-600">
-                      Weight: {(p.weight * p.qty).toFixed(2)} lbs
+                      Total Weight: {(p.weight * p.qty).toFixed(2)} lbs
                     </p>
                     <div className="flex justify-between">
                       <p className="mt-1 text-md font-medium text-gray-900">

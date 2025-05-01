@@ -92,19 +92,23 @@ export default function ProductCard({ name, price, weight, url }) {
   }
 
   return (
-    <div className="flex gap-5 10 items-center justify-center p-5 rounded-lg hover:bg-gray-200 w-80">
+    <div className="flex gap-5 items-center justify-center p-5 rounded-lg hover:bg-gray-200 w-80">
       <Link to={`${name}`}>
-        <div>
-          <img className="w-32 h-32" src={url} />
+        <div className="w-32 h-32 flex items-center justify-center"> 
+          <img 
+            className="w-full h-full object-contain"
+            src={url} 
+            alt={name} 
+          />
         </div>
       </Link>
 
       <div className="flex items-center justify-center flex-col gap-5">
         <p className="font-semibold">{name}</p>
-        <p>
-          ${price}
+        <p className="whitespace-nowrap">
+          ${price.toFixed(2)}
           {weight != null && (
-            <span className="text-gray-500 text-sm"> / {weight} lbs</span>
+            <span className="text-gray-500 text-sm"> / {weight.toFixed(1)} lbs</span>
           )}
         </p>
         {activeComponent ? buttonControls[1] : buttonControls[0]}
