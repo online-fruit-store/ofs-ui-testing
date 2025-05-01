@@ -1,0 +1,19 @@
+{
+  "name": "ofs-ui-testing",
+  "version": "1.0.0",
+  "description": "in its current state, the front page has 8 products allowing for quantity inputs, and an add to cart button, as well as a checkout button at the top that brings you to the checkoutpage but I haven't really worked on it at all.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/online-fruit-store/ofs-ui-testing.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/online-fruit-store/ofs-ui-testing/issues"
+  },
+  "homepage": "https://github.com/online-fruit-store/ofs-ui-testing#readme"
+}

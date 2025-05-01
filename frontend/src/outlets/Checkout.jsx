@@ -10,7 +10,6 @@ function getFormattedDate(offsetDays) {
 }
 
 export default function Checkout() {
-  // <- FIXED name here
 
   const { cart, setCart } = useContext(CartContext);
   const [deliveryOption, setDeliveryOption] = useState("tomorrow");
@@ -47,8 +46,7 @@ export default function Checkout() {
   ];
 
   return (
-    <div className="w-screen min-h-screen bg-gray-100 flex flex-col lg:flex-row gap-6 p-8">
-      {/* Delivery options column */}
+    <div className="w-screen min-h-screen bg-gray-100 flex flex-col lg:flex-row gap-6 p-8 mt-15">
       <div className="w-full lg:w-96 bg-white rounded-md shadow-md p-6 mb-6 lg:mb-0">
         <h2 className="text-xl font-semibold mb-4 border-b pb-2">
           Choose Your Delivery Option
@@ -97,7 +95,6 @@ export default function Checkout() {
       </div>
 
       <div className="flex-1 flex flex-col lg:flex-row gap-6">
-        {/* Review items column */}
         <div className="flex-1 bg-white rounded-md shadow-md p-6">
           <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
             Review Items
@@ -108,11 +105,13 @@ export default function Checkout() {
             <ul className="space-y-6">
               {cart.map((p) => (
                 <li key={p.id} className="flex border-b pb-4">
-                  <img
-                    src={p.url}
-                    alt={p.imageAlt}
-                    className="w-24 h-24 object-cover border rounded"
-                  />
+                  <div className="w-30 h-30 flex items-center justify-center">
+                    <img
+                      src={p.url}
+                      alt={p.imageAlt}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
                   <div className="ml-4 flex-1">
                     <h3 className="text-lg font-semibold">{p.name}</h3>
                     <p className="text-sm text-gray-500">{p.color}</p>
@@ -152,7 +151,6 @@ export default function Checkout() {
           )}
         </div>
 
-        {/* Order summary column */}
         <div className="w-full lg:w-100 bg-white rounded-md shadow-md p-6 h-fit">
           <h2 className="text-xl font-semibold mb-4 border-b pb-2">
             Order Summary
@@ -192,7 +190,7 @@ export default function Checkout() {
                 },
               })
             }
-            className="mt-6 w-full bg-red-400 hover:bg-yellow-500 text-gray-900 font-bold py-3 rounded-md shadow-md"
+            className="mt-6 w-full bg-blue-800 hover:bg-blue-900 text-white font-bold py-3 rounded-md shadow-md"
           >
             Place your order
           </button>

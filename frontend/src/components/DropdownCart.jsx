@@ -19,12 +19,12 @@ function Dropdown({ text, className, link }) {
       </Link>
 
       {isOpen && (
-        <ul className="absolute -left-8 mt-0 w-48 bg-white border rounded shadow-lg">
+        <ul className="absolute -left-8 mt-0 w-48 bg-white border rounded shadow-lg z-[60]">
           {cart.map((product) => {
             return (
               <li className="px-4 py-2 hover:bg-gray-100 flex justify-between items-center">
                 <div>{"("}{product.qty}{") "} {product.name}</div>
-                <div>${product.price.toFixed(2)}</div>
+                <div>${product.price}</div>
               </li>
             );
           })}
@@ -37,9 +37,9 @@ function Dropdown({ text, className, link }) {
             </div>
             <div>
               ${""}
-              {cart.reduce((total, product) => total + (product.price), 0)}
+              {cart.reduce((total, product) => total + product.price * product.qty, 0).toFixed(2)}
             </div>
-          </li>
+          </li> 
           <li className="px-4 py-2 hover:bg-gray-100 flex justify-between items-center">
             <div>
               Total Items:

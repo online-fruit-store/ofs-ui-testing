@@ -13,7 +13,7 @@ export default function ProductCard({ name, price, weight, url }) {
     <button
       type="submit"
       onClick={addToCart}
-      className="border-2 border-none px-2 py-1 bg-red-500 text-white text-sm rounded-lg cursor-pointer hover:bg-red-600
+      className="border-2 border-none px-2 py-1 bg-blue-800 text-white text-sm rounded-lg cursor-pointer hover:bg-blue-900
           transition delay-150 duration-300 ease-in-out hover:-translate-y-0.5 hover:scale-110"
     >
       Add to Cart
@@ -21,13 +21,13 @@ export default function ProductCard({ name, price, weight, url }) {
     <div className="flex gap-3">
       <button
         onClick={decreaseQty}
-        className="border-2 border-none px-2 py-1 bg-red-500 text-white text-sm rounded-sm cursor-pointer hover:bg-red-600"
+        className="border-2 border-none px-2 py-1 bg-blue-800 text-white text-sm rounded-sm cursor-pointer hover:bg-blue-900"
       >
         -
       </button>
       <div className="bg-white border rounded-md px-2">{qty}</div>
       <button
-        className="border-2 border-none px-2 py-1 bg-red-500 text-white text-sm rounded-sm cursor-pointer hover:bg-red-600"
+        className="border-2 border-none px-2 py-1 bg-blue-800 text-white text-sm rounded-sm cursor-pointer hover:bg-blue-900"
         onClick={increaseQty}
       >
         +
@@ -92,23 +92,19 @@ export default function ProductCard({ name, price, weight, url }) {
   }
 
   return (
-    <div className="flex gap-5 items-center justify-center p-5 rounded-lg hover:bg-gray-200 w-80">
+    <div className="flex gap-5 10 items-center justify-center p-5 rounded-lg hover:bg-gray-200 w-80">
       <Link to={`${name}`}>
-        <div className="w-32 h-32 flex items-center justify-center"> 
-          <img 
-            className="w-full h-full object-contain"
-            src={url} 
-            alt={name} 
-          />
+        <div className="w-32 h-32 flex items-center justify-center">
+          <img className="w-full h-full object-contain" src={url} alt={name} />
         </div>
       </Link>
 
       <div className="flex items-center justify-center flex-col gap-5">
         <p className="font-semibold">{name}</p>
         <p className="whitespace-nowrap">
-          ${price.toFixed(2)}
+          ${price}
           {weight != null && (
-            <span className="text-gray-500 text-sm"> / {weight.toFixed(1)} lbs</span>
+            <span className="text-gray-500 text-sm"> / {weight} lbs</span>
           )}
         </p>
         {activeComponent ? buttonControls[1] : buttonControls[0]}

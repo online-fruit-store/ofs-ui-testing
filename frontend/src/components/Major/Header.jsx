@@ -7,52 +7,39 @@ import { Link } from "react-router-dom";
 import { Search, ShoppingCart } from "lucide-react";
 
 export default function Header() {
-  const [showSearch, setShowSearch] = useState(false);
-
   return (
-    <div className="flex flex-col gap-2 p-1 shadow-sm bg-red-500 fixed w-full z-50">
-      <div className="flex items-center justify-between gap-4">
+    <div className="flex flex-col gap-2 p-1 shadow-lg shadow-blue-200 fixed w-full z-50 bg-white">
+      <div className="flex items-center justify-between gap-4 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 mt-3">
         <div className="flex-shrink-0">
           <Link to="/">
             <div className="flex items-center gap-5 hover:ring hover:ring-white rounded-sm">
-              <img className="w-20" src={logo} alt="Spartan Logo" />
-              <p className="hidden sm:block text-2xl font-bold text-white">Spartan Food Store</p>
+              <img className="w-15" src={logo} alt="Spartan Logo" />
+              <p className="hidden sm:block text-2xl font-bold text-black">Spartan Food Store</p>
             </div>
           </Link>
         </div>
 
-        
-
         <div className="flex items-center space-x-2 sm:space-x-4">
-          <div className="hidden md:flex flex-auto mx-4">
-            <SearchBar />
-          </div>
-
           <div className="flex items-center">
-            
-            <button className="md:hidden text-white p-2 mr-2" onClick={() => setShowSearch(!showSearch)}>
-              <Search size={24} />
-            </button>
-
             <ul className="flex">
-              <li>
+              <li className="pr-1">
                 <Dropdown
                   text="Products"
-                  className="relative inline-block"
+                  className="relative inline-block border-none bg-blue-800 hover:bg-blue-900 rounded-full p-0"
                   link={"/products"}
                 />
               </li>
-              <li>
+              <li className="pr-1">
                 <DropdownCart
                   link={"/Checkout"}
                   text="Cart"
-                  className="relative inline-block"
+                  className="relative inline-block border-none bg-blue-800 hover:bg-blue-900 rounded-full p-0"
                 />
               </li>
               <li className="whitespace-nowrap">
                 <Dropdown
                   text="Login / Register"
-                  className="relative inline-block"
+                  className="relative inline-block border-none bg-blue-800 hover:bg-blue-900 rounded-full p-0"
                   link={"/Auth"}
                 />
               </li>
@@ -60,12 +47,10 @@ export default function Header() {
           </div>
         </div>
       </div>
-      
-      {showSearch && (
-        <div className="md:hidden px-2 pb-2">
-          <SearchBar />
-        </div>
-      )}
+
+      <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 pb-2 relative z-40">
+        <SearchBar/>
+      </div>
     </div>
   );
 }

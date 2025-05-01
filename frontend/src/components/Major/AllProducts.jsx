@@ -49,7 +49,7 @@ export default function Main() {
   }
 
   return (
-    <div className="w-full py-8 px-4">
+    <div className="w-full py-8 px-4 mt-15">
       <div className="mx-auto max-w-screen-2xl">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 justify-center">
           {products.map((product) => (

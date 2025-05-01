@@ -28,7 +28,7 @@ export default function Receipt() {
   const total = subtotal + taxAmount;
 
   return (
-    <div className="max-w-2xl mx-auto p-8 bg-white shadow-md rounded-lg mt-10">
+    <div className="max-w-2xl mx-auto p-8 bg-white shadow-md rounded-lg mt-15">
       <div className="p-8">
         <h1 className="text-3xl font-bold">Thank you for your order!</h1>
         <p className="mt-4 text-lg">
