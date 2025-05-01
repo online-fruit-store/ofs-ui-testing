@@ -1,6 +1,9 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
+import GoogleMapComponent from '../components/Map'; 
+
+
 
 function getFormattedDate(offsetDays) {
   const date = new Date();
@@ -150,7 +153,7 @@ export default function Checkout() {
             </ul>
           )}
         </div>
-
+<div className="flex flex-col items-start gap-6" > 
         <div className="w-full lg:w-100 bg-white rounded-md shadow-md p-6 h-fit">
           <h2 className="text-xl font-semibold mb-4 border-b pb-2">
             Order Summary
@@ -194,8 +197,25 @@ export default function Checkout() {
           >
             Place your order
           </button>
+
+
+          
         </div>
-      </div>
+         
+        <div className="w-full bg-white rounded-md shadow-md p-6 h-fit mt-8">
+  <h2 className="text-xl font-semibold mb-4 border-b pb-2">Delivery Route</h2>
+  <GoogleMapComponent />
+</div>
+
     </div>
+
+        </div> 
+      </div>
+   
+        
+    
+
+
+
   );
 }
