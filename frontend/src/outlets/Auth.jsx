@@ -3,8 +3,8 @@ import Login from "../components/Login";
 import Registration from "../components/Registration";
 export default function Auth() {
   const COLORS = [
-    "rounded-md p-2 bg-red-600 hover:bg-red-500 text-sm/6 shadow-xs text-white font-semibold",
-    "rounded-md p-2 bg-gray-300 hover:bg-red-500 hover:text-white text-sm/6 font-semibold",
+    "rounded-md p-2 bg-blue-800 hover:bg-blue-900 text-sm/6 shadow-xs text-white font-semibold",
+    "rounded-md p-2 bg-gray-300 hover:bg-blue-900 hover:text-white text-sm/6 font-semibold",
   ];
   const [activeComponent, setActiveComponent] = useState("A");
 

@@ -103,7 +103,7 @@ export default function Checkout() {
           <div className="mt-6">
             <Link
               to="/Checkout"
-              className="flex w-full items-center justify-center rounded-md bg-red-600 px-6 py-3 text-base font-semibold text-white shadow hover:bg-emerald-700"
+              className="flex w-full items-center justify-center rounded-md bg-blue-800 px-6 py-3 text-base font-semibold text-white shadow hover:bg-emerald-700"
             >
               Proceed
             </Link>

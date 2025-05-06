@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/online-fruit-store/ofs-ui-testing/issues"
   },
-  "homepage": "https://github.com/online-fruit-store/ofs-ui-testing#readme"
+  "homepage": "https://github.com/online-fruit-store/ofs-ui-testing#readme",
+  "dependencies": {
+    "@react-google-maps/api": "^2.20.6"
+  }
 }
