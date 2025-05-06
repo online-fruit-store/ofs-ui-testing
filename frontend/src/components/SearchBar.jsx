@@ -13,7 +13,7 @@ export default function SearchBar() {
   useEffect(() => {
     if (query.trim() === "") {
       setResults([]);
-      return;
+      return;  
     }
 
     if (products && products.length > 0) {
