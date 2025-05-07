@@ -55,7 +55,8 @@ CREATE TABLE userspace (
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
   email TEXT NOT NULL UNIQUE,
-  password TEXT NOT NULL
+  password TEXT NOT NULL,
+  role TEXT NOT NULL
 );
 
 INSERT INTO userspace (first_name, last_name, email, password, role)

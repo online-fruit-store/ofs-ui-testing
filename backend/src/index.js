@@ -68,7 +68,7 @@ app.post("/register", async (req, res, next) => {
   try {
     const { firstName, lastName, email, password } = req.body;
     await pool.query(
-      "INSERT INTO userspace (first_name, last_name, email, password) VALUES ($1, $2, $3, $4)",
+      "INSERT INTO userspace (first_name, last_name, email, password, role) VALUES ($1, $2, $3, $4, 'customer')",
       [firstName, lastName, email, password]
     );
     res.redirect("http://localhost:5173/");
