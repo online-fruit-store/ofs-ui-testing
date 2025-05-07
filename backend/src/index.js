@@ -5,6 +5,7 @@ const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const { placeOrder } = require("./controllers/orderController");
 
 const db = require("./db/query");
 const cors = require("cors");
@@ -156,6 +157,8 @@ app.get("/users", async (req, res) => {
   const users = await db.getUsers();
   res.json(users);
 });
+
+app.post("/api/order", placeOrder);
 
 app.get("/", (_req, res) => {
   res.send("Backend server is running.");
