@@ -15,7 +15,9 @@ export default function LoggedInHeader() {
           <Link to="/">
             <div className="flex items-center gap-5 hover:ring hover:ring-white rounded-sm">
               <img className="w-15" src={logo} alt="Spartan Logo" />
-              <p className="hidden sm:block text-2xl font-bold text-black">Spartan Food Store</p>
+              <p className="hidden sm:block text-2xl font-bold text-black">
+                Spartan Food Store
+              </p>
             </div>
           </Link>
         </div>
@@ -45,9 +47,9 @@ export default function LoggedInHeader() {
               </li>
               <li className="whitespace-nowrap">
                 <Dropdown
-                  text="Login / Register"
+                  text="Logout"
                   className="relative inline-block border-none bg-blue-800 hover:bg-blue-900 rounded-full p-0"
-                  link={"/Auth"}
+                  link={"/Logout"}
                 />
               </li>
             </ul>
@@ -56,7 +58,7 @@ export default function LoggedInHeader() {
       </div>
 
       <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 pb-2">
-        <SearchBar/>
+        <SearchBar />
       </div>
     </div>
   );

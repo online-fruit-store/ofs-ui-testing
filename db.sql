@@ -58,6 +58,10 @@ CREATE TABLE userspace (
   password TEXT NOT NULL
 );
 
+INSERT INTO userspace (first_name, last_name, email, password, role)
+VALUES
+('Ivan', 'Gomez', 'igomez9898@gmail.com', 'pass', 'admin');
+
 -- Custom Tables
 
 CREATE TABLE admin

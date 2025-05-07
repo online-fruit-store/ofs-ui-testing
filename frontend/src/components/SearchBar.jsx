@@ -8,26 +8,28 @@ export default function SearchBar() {
   const [results, setResults] = useState([]);
   const [isFocused, setIsFocused] = useState(false);
   const navigate = useNavigate();
-  const { data: products, isLoading } = useFetch("http://localhost:3000/products");
+  const { data: products, isLoading } = useFetch(
+    "http://localhost:3000/products"
+  );
 
   useEffect(() => {
     if (query.trim() === "") {
       setResults([]);
-      return;  
+      return;
     }
 
     if (products && products.length > 0) {
       const filtered = products.filter((product) =>
         product.name.toLowerCase().includes(query.toLowerCase())
       );
-      setResults(filtered.slice(0, 20)); 
+      setResults(filtered.slice(0, 20));
     }
   }, [query, products]);
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (query.trim() && results.length > 0) {
-      navigate(`/${results[0].name}`);
+      navigate(`/products/${results[0].name}`);
       setQuery("");
       setResults([]);
     }
