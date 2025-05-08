@@ -18,16 +18,16 @@ export default function ProductPage() {
     <div className="p-5 grow mt-15">
       <h1 className="text-3xl font-bold">{product.name}</h1>
       <div className="w-64 h-64 flex items-center justify-center">
-          <img
-            src={product.img_url}
-            alt={product.name}
-            className="w-full h-full object-contain"
-          />
+        <img
+          src={product.img_url}
+          alt={product.name}
+          className="w-full h-full object-contain"
+        />
       </div>
-      
+
       <p className="text-xl text-gray-700">Price: ${product.price}</p>
       <p className="text-xl text-gray-700">Weight: {product.weight} lbs</p>
-      <p className="text-lg">Some description here</p>
+      <p className="text-lg">{product.description}</p>
     </div>
   );
 }

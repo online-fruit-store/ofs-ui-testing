@@ -23,7 +23,9 @@ app.use((req, res, next) => {
   const start = Date.now();
   res.on("finish", () => {
     const duration = Date.now() - start;
-    console.log(`${req.method} ${req.originalUrl} ${res.statusCode} - ${duration}ms`);
+    console.log(
+      `${req.method} ${req.originalUrl} ${res.statusCode} - ${duration}ms`
+    );
   });
   next();
 });
@@ -194,7 +196,7 @@ app.get("/user/cart", async (req, res) => {
       [req.user.id]
     );
     const cart = rows[0]?.cart || [];
-    res.json(cart);
+    res.json({ cart });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to fetch cart" });
@@ -208,23 +210,36 @@ app.post("/user/cart", async (req, res) => {
 
   try {
     const { cart } = req.body;
-    await pool.query(
-      "UPDATE userspace SET cart = $1 WHERE id = $2",
-      [JSON.stringify(cart), req.user.id]
-    );
-    res.json({ success: true });
+
+    if (!Array.isArray(cart)) {
+      return res.status(400).json({ error: "Cart must be an array" });
+    }
+
+    // Debug the cart data
+    console.log("Received cart data:", JSON.stringify(cart));
+
+    // Use parameterized query with explicit JSONB cast
+    await pool.query("UPDATE userspace SET cart = $1::jsonb WHERE id = $2", [
+      JSON.stringify(cart),
+      req.user.id,
+    ]);
+
+    res.json({ success: true, message: "Cart updated successfully" });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to save cart" });
+    console.error("Error updating cart:", err);
+    res
+      .status(500)
+      .json({ error: "Failed to save cart", details: err.message });
   }
 });
 
-app.post("/login",
+app.post(
+  "/login",
   (req, res, next) => {
     passport.authenticate("local", (err, user, info) => {
       if (err) return next(err);
       if (!user) return res.status(401).json({ error: info.message });
-      
+
       req.logIn(user, (err) => {
         if (err) return next(err);
         next();
@@ -234,7 +249,7 @@ app.post("/login",
   async (req, res) => {
     try {
       const localCart = req.body.cart || [];
-      
+
       const { rows } = await pool.query(
         "SELECT cart FROM userspace WHERE id = $1",
         [req.user.id]
@@ -243,13 +258,13 @@ app.post("/login",
 
       const mergedCart = mergeCarts(serverCart, localCart);
 
-      await pool.query(
-        "UPDATE userspace SET cart = $1 WHERE id = $2",
-        [JSON.stringify(mergedCart), req.user.id]
-      );
+      await pool.query("UPDATE userspace SET cart = $1 WHERE id = $2", [
+        JSON.stringify(mergedCart),
+        req.user.id,
+      ]);
 
-      res.json({ 
-        success: true, 
+      res.json({
+        success: true,
         cart: mergedCart,
         user: req.user,
       });
