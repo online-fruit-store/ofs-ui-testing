@@ -30,7 +30,7 @@ function Dropdown({ text, className, link }) {
                 {product.qty}
                 {") "} {product.name}
               </div>
-              <div>${Number(product.price).toFixed(2)}</div>
+              <div>${(product.qty * Number(product.price)).toFixed(2)}</div>
             </li>
           ))}
           <div className="p-3">
