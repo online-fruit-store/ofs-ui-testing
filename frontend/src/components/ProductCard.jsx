@@ -7,6 +7,8 @@ export default function ProductCard({ name, price, weight, url }) {
   const { cart, setCart } = useContext(CartContext);
   const [activeComponent, setActiveComponent] = useState(0);
   const [qty, setQty] = useState(0);
+  const [lastToastTime, setLastToastTime] = useState(0);
+
 
   const buttonControls = [
     <button
@@ -17,54 +19,45 @@ export default function ProductCard({ name, price, weight, url }) {
     >
       Add to Cart
     </button>,
-    <div className="flex gap-3">
-      <button
-        onClick={decreaseQty}
-        className="border-2 border-none px-2 py-1 bg-blue-800 text-white text-sm rounded-sm cursor-pointer hover:bg-blue-900"
-      >
-        -
-      </button>
-      <div className="bg-white border rounded-md px-2">{qty}</div>
-      <button
-        className="border-2 border-none px-2 py-1 bg-blue-800 text-white text-sm rounded-sm cursor-pointer hover:bg-blue-900"
-        onClick={increaseQty}
-      >
-        +
-      </button>
-    </div>,
-  ];
 
-  function decreaseQty() {
-    if (qty > 1) {
-      setQty(qty - 1);
-      setCart(
-        cart.map((p) => {
-          if (p.name === name) {
-            return { ...p, qty: p.qty - 1 };
-          } else {
-            return p;
-          }
-        })
-      );
-    } else {
-      setActiveComponent(0);
-    }
-  }
 
-  function increaseQty() {
-    if (qty < 50) {
-      setQty(qty + 1);
-      setCart(
-        cart.map((p) => {
-          if (p.name === name) {
-            return { ...p, qty: p.qty + 1 };
-          } else {
-            return p;
-          }
-        })
-      );
+<div className="flex gap-3">
+  <input
+    type="number"
+    min="0"
+    max="50"
+    value={qty}
+    onChange={handleQtyChange}
+    className="w-16 px-2 py-1 border rounded-md text-center"
+  />
+</div>
+
+]; 
+
+function handleQtyChange(e) {
+  const value = parseInt(e.target.value, 10);
+
+  if (!isNaN(value) && value >= 0 && value <= 500) {
+    setQty(value);
+
+    const now = Date.now();
+    if (now - lastToastTime > 5000) {
+      toast(`${name} added to cart!`);
+      setLastToastTime(now);
     }
+
+    setCart(
+      cart.map((p) => {
+        if (p.name === name) {
+          return { ...p, qty: value };
+        } else {
+          return p;
+        }
+      })
+    );
   }
+}
+
 
   function addToCart() {
     let product = cart.find((p) => p.name === name);
