@@ -1,8 +1,10 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useContext } from "react";
+import { AuthContext } from "./AuthContext";
 
 const CartContext = createContext({ cart: [], setCart: () => {} });
 
 export default function CartContextProvider({ children }) {
+  const { auth } = useContext(AuthContext);
   const [cart, setCart] = useState(() => {
     const storedCart = localStorage.getItem("cart");
     return storedCart ? JSON.parse(storedCart) : [];
@@ -11,7 +13,18 @@ export default function CartContextProvider({ children }) {
   useEffect(() => {
     console.log("Cart updated", cart);
     localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+    
+    if (auth.loggedIn) {
+      fetch("http://localhost:3000/user/cart", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cart),
+      });
+    }
+  }, [cart, auth.loggedIn]);
 
   return (
     <CartContext.Provider value={{ cart, setCart }}>

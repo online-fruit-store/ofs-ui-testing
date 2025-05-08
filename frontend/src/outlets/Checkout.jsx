@@ -3,8 +3,6 @@ import { CartContext } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 import GoogleMapComponent from '../components/Map'; 
 
-
-
 function getFormattedDate(offsetDays) {
   const date = new Date();
   date.setDate(date.getDate() + offsetDays);
@@ -15,7 +13,7 @@ function getFormattedDate(offsetDays) {
 export default function Checkout() {
 
   const { cart, setCart } = useContext(CartContext);
-  const [deliveryOption, setDeliveryOption] = useState("tomorrow");
+  const [deliveryOption, setDeliveryOption] = useState(null);
   const navigate = useNavigate();
 
   const subtotal = cart.reduce((sum, p) => sum + p.price * p.qty, 0);
@@ -118,19 +116,23 @@ export default function Checkout() {
                   <div className="ml-4 flex-1">
                     <h3 className="text-lg font-semibold">{p.name}</h3>
                     <p className="text-sm text-gray-500">{p.color}</p>
-                    <p className="text-sm text-gray-600 mt-1 flex flex-row gap-2">
+                    <p className="text-sm text-gray-600 mt-1 flex flex-row gap-2 items-center">
                       <label>Qty:</label>
-                      <select
-                        className="border rounded-sm"
+                      <input
+                        type="number"
+                        min="1"
                         value={p.qty}
-                        onChange={(e) => adjustQty(p, Number(e.target.value))}
-                      >
-                        {[...Array(10).keys()].map((i) => (
-                          <option key={i + 1} value={i + 1}>
-                            {i + 1}
-                          </option>
-                        ))}
-                      </select>
+                        onChange={(e) => {
+                          const newQty = Math.max(1, Math.floor(Number(e.target.value)));
+                          adjustQty(p, newQty);
+                        }}
+                        className="border rounded-sm w-16 px-2 py-1"
+                        onKeyDown={(e) => {
+                          if (e.key === '.' || e.key === '-' || e.key === 'e') {
+                            e.preventDefault();
+                          }
+                        }}
+                      />
                     </p>
                     <p className="text-sm text-gray-600">
                       Total Weight: {(p.weight * p.qty).toFixed(2)} lbs
@@ -182,7 +184,8 @@ export default function Checkout() {
           </ul>
           <button
             type="button"
-            onClick={() =>
+            onClick={() => {
+              setCart([]);
               navigate("/Receipt", {
                 state: {
                   cartItems: cart.map((item) => ({
@@ -191,31 +194,28 @@ export default function Checkout() {
                   })),
                   total: orderTotal,
                 },
-              })
-            }
-            className="mt-6 w-full bg-blue-800 hover:bg-blue-900 text-white font-bold py-3 rounded-md shadow-md"
+              });
+            }}
+            disabled={cart.length === 0 || !deliveryOption}
+            className={`mt-6 w-full text-white font-bold py-3 rounded-md shadow-md ${
+              cart.length === 0 || !deliveryOption
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-800 hover:bg-blue-900"
+            }`}
           >
             Place your order
           </button>
 
-
-          
         </div>
          
         <div className="w-full bg-white rounded-md shadow-md p-6 h-fit mt-8">
   <h2 className="text-xl font-semibold mb-4 border-b pb-2">Delivery Route</h2>
   <GoogleMapComponent />
-</div>
-
+  </div>
     </div>
 
-        </div> 
-      </div>
-   
-        
-    
-
-
-
+      </div> 
+  </div>
   );
 }
+

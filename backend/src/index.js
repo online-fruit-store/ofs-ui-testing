@@ -116,14 +116,6 @@ app.put("/products/:id", async (req, res) => {
   }
 });
 
-app.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "http://localhost:5173/",
-    failureRedirect: "http://localhost:5173/404",
-  })
-);
-
 app.get("/logout", (req, res, next) => {
   req.logout((err) => {
     if (err) {
@@ -177,3 +169,106 @@ app.get("/", (_req, res) => {
 app.listen(process.env.PORT, () =>
   console.log(`Example app is listening on port ${process.env.PORT}`)
 );
+
+const mergeCarts = (serverCart, localCart) => {
+  const merged = [...(serverCart || [])];
+  (localCart || []).forEach((localItem) => {
+    const existing = merged.find((item) => item.id === localItem.id);
+    if (existing) {
+      existing.qty += localItem.qty;
+    } else {
+      merged.push(localItem);
+    }
+  });
+  return merged;
+};
+
+app.get("/user/cart", async (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ error: "Not authenticated" });
+  }
+
+  try {
+    const { rows } = await pool.query(
+      "SELECT cart FROM userspace WHERE id = $1",
+      [req.user.id]
+    );
+    const cart = rows[0]?.cart || [];
+    res.json(cart);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch cart" });
+  }
+});
+
+app.post("/user/cart", async (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ error: "Not authenticated" });
+  }
+
+  try {
+    const { cart } = req.body;
+    await pool.query(
+      "UPDATE userspace SET cart = $1 WHERE id = $2",
+      [JSON.stringify(cart), req.user.id]
+    );
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to save cart" });
+  }
+});
+
+app.post("/login",
+  (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+      if (err) return next(err);
+      if (!user) return res.status(401).json({ error: info.message });
+      
+      req.logIn(user, (err) => {
+        if (err) return next(err);
+        next();
+      });
+    })(req, res, next);
+  },
+  async (req, res) => {
+    try {
+      const localCart = req.body.cart || [];
+      
+      const { rows } = await pool.query(
+        "SELECT cart FROM userspace WHERE id = $1",
+        [req.user.id]
+      );
+      const serverCart = rows[0]?.cart || [];
+
+      const mergedCart = mergeCarts(serverCart, localCart);
+
+      await pool.query(
+        "UPDATE userspace SET cart = $1 WHERE id = $2",
+        [JSON.stringify(mergedCart), req.user.id]
+      );
+
+      res.json({ 
+        success: true, 
+        cart: mergedCart,
+        user: req.user,
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Failed to process login" });
+    }
+  }
+);
+
+app.get("/logout", async (req, res, next) => {
+  try {
+    req.logout((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect("http://localhost:5173/");
+    });
+  } catch (err) {
+    next(err);
+  }
+});

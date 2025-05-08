@@ -23,9 +23,14 @@ export default function Receipt() {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-  const taxRate = 0.08; // 8% tax
+  const taxRate = 0.1025; // Changed to match Checkout.jsx's 10.25%
   const taxAmount = subtotal * taxRate;
-  const total = subtotal + taxAmount;
+  const totalWeight = cartItems.reduce(
+    (sum, item) => sum + (item.weight * item.quantity),
+    0
+  );
+  const shippingFee = totalWeight >= 20 ? 5 : 0;
+  const total = subtotal + taxAmount + shippingFee;
 
   return (
     <div className="max-w-2xl mx-auto p-8 bg-white shadow-md rounded-lg mt-15">
@@ -53,7 +58,9 @@ export default function Receipt() {
           <div key={item.id} className="flex justify-between py-2 border-b">
             <div>
               <p className="font-medium">{item.name}</p>
-              <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
+              <p className="text-sm text-gray-500">
+                Quantity: {item.quantity} | Weight: {(item.weight * item.quantity).toFixed(2)} lbs
+              </p>
             </div>
             <div className="text-right">
               <p>${(item.price * item.quantity).toFixed(2)}</p>
@@ -66,7 +73,9 @@ export default function Receipt() {
 
       <div className="text-right text-lg space-y-2">
         <p>Subtotal: ${subtotal.toFixed(2)}</p>
-        <p>Tax (8%): ${taxAmount.toFixed(2)}</p>
+        <p>Shipping: {shippingFee === 0 ? "Free" : `$${shippingFee.toFixed(2)}`}</p>
+        <p>Tax (10.25%): ${taxAmount.toFixed(2)}</p>
+        <p>Total Weight: {totalWeight.toFixed(2)} lbs</p>
         <p className="text-xl font-bold">Total: ${total.toFixed(2)}</p>
       </div>
 

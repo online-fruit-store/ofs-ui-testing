@@ -1,4 +1,3 @@
-import AddToCart from "./AddToCart";
 import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
 import { CartContext } from "../contexts/CartContext";
