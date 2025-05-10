@@ -10,6 +10,7 @@ import Whatever from "./outlets/Whatever";
 import Logout from "./components/Logout";
 import Checkout from "./outlets/Checkout"; // IMPORTANT: correct import!
 import Receipt from "./outlets/Receipt";
+import CheckoutInfo from "./outlets/CheckoutInfo";
 import AdminAddProduct from "./components/Admin/AdminAddProduct";
 const routes = [
   {
@@ -24,6 +25,7 @@ const routes = [
       { path: "Logout", element: <Logout /> },
       { path: "Checkout", element: <Checkout /> },
       { path: "Receipt", element: <Receipt /> },
+      { path: "Checkout/Processing", element: <CheckoutInfo /> },
     ],
   },
   {
@@ -33,10 +35,6 @@ const routes = [
       { index: true, element: <AdminHome /> },
       { path: "AddProduct", element: <AdminAddProduct /> },
     ],
-  },
-  {
-    path: "/Whatever",
-    element: <Whatever />,
   },
 ];
 

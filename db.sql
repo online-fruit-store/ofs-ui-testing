@@ -457,3 +457,4 @@ VALUES
 ('milk', 0.66, 2.2, 'dairy', 19, 'https://res.cloudinary.com/dezsecf8p/image/upload/f_auto,q_auto/v1/Backend%20Pictures/fqqi4iqizufbfmgv1jsq', 'Whole milk, rich in calcium.'),
 ('cheese', 0.99, 0.8, 'dairy', 33, 'https://res.cloudinary.com/dezsecf8p/image/upload/f_auto,q_auto/v1/Backend%20Pictures/ia0gepzw3iuclty72s8i', 'Aged cheddar cheese block.'),
 ('ham', 0.99, 0.7, 'deli', 73, 'https://res.cloudinary.com/dezsecf8p/image/upload/f_auto,q_auto/v1/Backend%20Pictures/pwbc8wwrrjpafoflen52', 'Sliced deli ham, perfect for sandwiches.');
+

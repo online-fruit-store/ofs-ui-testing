@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
-import GoogleMapComponent from '../components/Map'; 
+import GoogleMapComponent from "../components/Map";
 
 function getFormattedDate(offsetDays) {
   const date = new Date();
@@ -11,7 +11,6 @@ function getFormattedDate(offsetDays) {
 }
 
 export default function Checkout() {
-
   const { cart, setCart } = useContext(CartContext);
   const [deliveryOption, setDeliveryOption] = useState(null);
   const navigate = useNavigate();
@@ -70,7 +69,9 @@ export default function Checkout() {
               <div>
                 <div className="flex flex-col">
                   <span className="font-medium">{opt.label}</span>
-                  <span className="text-sm text-gray-500 mt-1">{opt.costTag}</span>
+                  <span className="text-sm text-gray-500 mt-1">
+                    {opt.costTag}
+                  </span>
                 </div>
               </div>
             </label>
@@ -123,12 +124,15 @@ export default function Checkout() {
                         min="1"
                         value={p.qty}
                         onChange={(e) => {
-                          const newQty = Math.max(1, Math.floor(Number(e.target.value)));
+                          const newQty = Math.max(
+                            1,
+                            Math.floor(Number(e.target.value))
+                          );
                           adjustQty(p, newQty);
                         }}
                         className="border rounded-sm w-16 px-2 py-1"
                         onKeyDown={(e) => {
-                          if (e.key === '.' || e.key === '-' || e.key === 'e') {
+                          if (e.key === "." || e.key === "-" || e.key === "e") {
                             e.preventDefault();
                           }
                         }}
@@ -155,67 +159,65 @@ export default function Checkout() {
             </ul>
           )}
         </div>
-<div className="flex flex-col items-start gap-6" > 
-        <div className="w-full lg:w-100 bg-white rounded-md shadow-md p-6 h-fit">
-          <h2 className="text-xl font-semibold mb-4 border-b pb-2">
-            Order Summary
-          </h2>
-          <ul className="space-y-3 text-gray-700 text-base">
-            <li className="flex justify-between">
-              <span>Items subtotal:</span>
-              <span>${subtotal.toFixed(2)}</span>
-            </li>
-            <li className="flex justify-between">
-              <span>Shipping (weight rule):</span>
-              <span>{deliveryFee === 0 ? "Free under 20 lbs" : "$5.00"}</span>
-            </li>
-            <li className="flex justify-between">
-              <span>Tax:</span>
-              <span>${tax.toFixed(2)}</span>
-            </li>
-            <li className="flex justify-between">
-              <span>Total weight:</span>
-              <span>{totalWeight.toFixed(2)} lbs</span>
-            </li>
-            <li className="flex justify-between font-bold text-lg border-t pt-3">
-              <span>Order total:</span>
-              <span>${orderTotal.toFixed(2)}</span>
-            </li>
-          </ul>
-          <button
-            type="button"
-            onClick={() => {
-              setCart([]);
-              navigate("/Receipt", {
-                state: {
-                  cartItems: cart.map((item) => ({
-                    ...item,
-                    quantity: item.qty,
-                  })),
-                  total: orderTotal,
-                },
-              });
-            }}
-            disabled={cart.length === 0 || !deliveryOption}
-            className={`mt-6 w-full text-white font-bold py-3 rounded-md shadow-md ${
-              cart.length === 0 || !deliveryOption
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-blue-800 hover:bg-blue-900"
-            }`}
-          >
-            Place your order
-          </button>
+        <div className="flex flex-col items-start gap-6">
+          <div className="w-full lg:w-100 bg-white rounded-md shadow-md p-6 h-fit">
+            <h2 className="text-xl font-semibold mb-4 border-b pb-2">
+              Order Summary
+            </h2>
+            <ul className="space-y-3 text-gray-700 text-base">
+              <li className="flex justify-between">
+                <span>Items subtotal:</span>
+                <span>${subtotal.toFixed(2)}</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Shipping:</span>
+                <span>{deliveryFee === 0 ? "Free under 20 lbs" : "$5.00"}</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Tax:</span>
+                <span>${tax.toFixed(2)}</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Total weight:</span>
+                <span>{totalWeight.toFixed(2)} lbs</span>
+              </li>
+              <li className="flex justify-between font-bold text-lg border-t pt-3">
+                <span>Order total:</span>
+                <span>${orderTotal.toFixed(2)}</span>
+              </li>
+            </ul>
+            <button
+              type="button"
+              onClick={() => {
+                navigate("/Checkout/Processing", {
+                  state: {
+                    cartItems: cart.map((item) => ({
+                      ...item,
+                      quantity: item.qty,
+                    })),
+                    total: orderTotal,
+                  },
+                });
+              }}
+              disabled={cart.length === 0 || !deliveryOption}
+              className={`mt-6 w-full text-white font-bold py-3 rounded-md shadow-md ${
+                cart.length === 0 || !deliveryOption
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-800 hover:bg-blue-900"
+              }`}
+            >
+              Place your order
+            </button>
+          </div>
 
+          <div className="w-full bg-white rounded-md shadow-md p-6 h-fit mt-8">
+            <h2 className="text-xl font-semibold mb-4 border-b pb-2">
+              Delivery Route
+            </h2>
+            <GoogleMapComponent />
+          </div>
         </div>
-         
-        <div className="w-full bg-white rounded-md shadow-md p-6 h-fit mt-8">
-  <h2 className="text-xl font-semibold mb-4 border-b pb-2">Delivery Route</h2>
-  <GoogleMapComponent />
-  </div>
+      </div>
     </div>
-
-      </div> 
-  </div>
   );
 }
-

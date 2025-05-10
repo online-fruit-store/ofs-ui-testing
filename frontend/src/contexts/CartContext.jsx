@@ -10,10 +10,8 @@ export default function CartContextProvider({ children }) {
     return storedCart ? JSON.parse(storedCart) : [];
   });
 
-  // Sync with server when logged in
   useEffect(() => {
     if (auth.loggedIn) {
-      // Fetch the cart from server when logged in
       fetch("http://localhost:3000/user/cart", {
         credentials: "include",
         mode: "cors",
@@ -26,7 +24,6 @@ export default function CartContextProvider({ children }) {
         })
         .then((data) => {
           if (data.cart && Array.isArray(data.cart)) {
-            // Only update state if server cart is different
             if (JSON.stringify(data.cart) !== JSON.stringify(cart)) {
               setCart(data.cart);
             }
@@ -36,9 +33,8 @@ export default function CartContextProvider({ children }) {
           console.error("Error fetching cart:", error);
         });
     }
-  }, [auth.loggedIn]); // Only run when login state changes
+  }, [auth.loggedIn]);
 
-  // Save cart to localStorage and server when cart changes
   useEffect(() => {
     console.log("Cart updated", cart);
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -46,7 +42,7 @@ export default function CartContextProvider({ children }) {
     if (auth.loggedIn) {
       fetch("http://localhost:3000/user/cart", {
         method: "POST",
-        body: JSON.stringify({ cart }), // Properly format as { cart: [...] }
+        body: JSON.stringify({ cart }),
         credentials: "include",
         mode: "cors",
         headers: {
