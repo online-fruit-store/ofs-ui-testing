@@ -2,7 +2,14 @@ SET TIME ZONE 'UTC';
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
+-- Drop tables if they exist to ensure clean setup
+DROP TABLE IF EXISTS order_items;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS payments;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS userspace;
 
+-- Create user table
 CREATE TABLE userspace (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   first_name TEXT NOT NULL,
@@ -13,8 +20,20 @@ CREATE TABLE userspace (
   cart JSONB DEFAULT '[]'::jsonb
 );
 
+-- Create products table
+CREATE TABLE products (
+  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  name VARCHAR(255) NOT NULL,
+  price NUMERIC(10, 2) NOT NULL,
+  weight NUMERIC(6, 2) DEFAULT 0,
+  category VARCHAR(255),
+  stock INTEGER DEFAULT 0,
+  img_url VARCHAR(255),
+  description VARCHAR(1023)
+);
 
-CREATE TABLE IF NOT EXISTS payments (
+-- Create payments table
+CREATE TABLE payments (
   id SERIAL PRIMARY KEY,
   transaction_id VARCHAR(255) UNIQUE NOT NULL,
   amount DECIMAL(10, 2) NOT NULL,
@@ -22,40 +41,41 @@ CREATE TABLE IF NOT EXISTS payments (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS orders (
+-- Create orders table
+CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
-  user_id INTEGER,
+  user_id INTEGER REFERENCES userspace(id) ON DELETE SET NULL,
   status VARCHAR(50) DEFAULT 'pending',
   total DECIMAL(10, 2) NOT NULL,
   shipping_address TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS order_items (
+-- Create order_items table with denormalized product data
+CREATE TABLE order_items (
   id SERIAL PRIMARY KEY,
   order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
-  product_id INTEGER,
+  product_id INTEGER REFERENCES products(id) ON DELETE SET NULL,
+  product_name VARCHAR(255) NOT NULL, -- Store name at time of purchase
+  product_price DECIMAL(10, 2) NOT NULL, -- Store price at time of purchase
   quantity INTEGER NOT NULL,
-  price DECIMAL(10, 2) NOT NULL
+  price DECIMAL(10, 2) NOT NULL, -- Unit price
+  img_url VARCHAR(255), -- Store image URL at time of purchase
+  weight NUMERIC(6, 2) DEFAULT 0 -- Store weight at time of purchase
 );
 
+-- Create indexes for better performance
+CREATE INDEX idx_orders_user_id ON orders(user_id);
+CREATE INDEX idx_order_items_order_id ON order_items(order_id);
+CREATE INDEX idx_order_items_product_id ON order_items(product_id);
+CREATE INDEX idx_payments_transaction_id ON payments(transaction_id);
 
-
-CREATE TABLE products (
-    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    name character varying(255),
-    price numeric(10, 2),
-    weight numeric(6, 2),
-    category character varying(255),
-    stock integer,
-    img_url character varying(255),
-    description character varying (1023)
-);
-
+-- Insert sample user
 INSERT INTO userspace (first_name, last_name, email, password, role)
 VALUES
 ('Ivan', 'Gomez', 'igomez9898@gmail.com', 'pass', 'admin');
 
+-- Insert sample products
 INSERT INTO products (name, price, weight, category, stock, img_url, description)
 VALUES
 ('apple', 0.66, 0.5, 'fruit', 85, 'https://res.cloudinary.com/dezsecf8p/image/upload/f_auto,q_auto/v1/Backend%20Pictures/g3efmooigjjmfh0c5gby', 'Crisp and sweet red apple.'),
@@ -78,4 +98,3 @@ VALUES
 ('milk', 0.66, 2.2, 'dairy', 19, 'https://res.cloudinary.com/dezsecf8p/image/upload/f_auto,q_auto/v1/Backend%20Pictures/fqqi4iqizufbfmgv1jsq', 'Whole milk, rich in calcium.'),
 ('cheese', 0.99, 0.8, 'dairy', 33, 'https://res.cloudinary.com/dezsecf8p/image/upload/f_auto,q_auto/v1/Backend%20Pictures/ia0gepzw3iuclty72s8i', 'Aged cheddar cheese block.'),
 ('ham', 0.99, 0.7, 'deli', 73, 'https://res.cloudinary.com/dezsecf8p/image/upload/f_auto,q_auto/v1/Backend%20Pictures/pwbc8wwrrjpafoflen52', 'Sliced deli ham, perfect for sandwiches.');
-

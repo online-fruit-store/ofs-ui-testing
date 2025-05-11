@@ -80,7 +80,7 @@ export default function OrderHistory() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-100 p-8">
+      <div className="w-full min-h-screen bg-gray-100 p-25">
         <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
           <h1 className="text-2xl font-bold text-red-600 mb-4">Error</h1>
           <p className="text-gray-700">{error}</p>

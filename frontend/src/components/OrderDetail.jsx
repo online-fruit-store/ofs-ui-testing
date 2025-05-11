@@ -7,7 +7,13 @@ export default function OrderDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const getProductName = (item) => {
+    return item.name || `Product ${item.product_id}`;
+  };
 
+  const getProductImage = (item) => {
+    return item.img_url || "https://via.placeholder.com/80";
+  };
   useEffect(() => {
     const fetchOrderDetails = async () => {
       try {
@@ -67,7 +73,7 @@ export default function OrderDetail() {
 
   if (error) {
     return (
-      <div className="min-h-screen p-8 mt-15">
+      <div className="w-full min-h-screen p-8 mt-15">
         <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
           <h1 className="text-2xl font-bold text-red-600 mb-4">Error</h1>
           <p>{error}</p>
@@ -84,7 +90,7 @@ export default function OrderDetail() {
 
   if (!order) {
     return (
-      <div className="min-h-screen p-8 mt-15">
+      <div className="w-full min-h-screen p-8 mt-15">
         <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
           <h1 className="text-2xl font-bold mb-4">Order Not Found</h1>
           <p className="text-gray-700">This order could not be found.</p>
@@ -169,8 +175,8 @@ export default function OrderDetail() {
                 >
                   <div className="w-20 h-20 flex-shrink-0 mr-4">
                     <img
-                      src={item.img_url || "/placeholder.png"}
-                      alt={item.name || `Product ${item.product_id}`}
+                      src={getProductImage(item)}
+                      alt={getProductName(item)}
                       className="w-full h-full object-cover rounded"
                       onError={(e) => {
                         e.target.onerror = null;
@@ -179,9 +185,7 @@ export default function OrderDetail() {
                     />
                   </div>
                   <div className="flex-grow">
-                    <h4 className="font-medium">
-                      {item.name || `Product ${item.product_id}`}
-                    </h4>
+                    <h4 className="font-medium">{getProductName(item)}</h4>
                     <p className="text-sm text-gray-500">
                       ${parseFloat(item.price).toFixed(2)} each
                     </p>
