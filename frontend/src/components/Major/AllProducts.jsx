@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import ProductCard from "../ProductCard";
-const BASE_URL = "http://localhost:3000/products";
+const BASE_URL = "http://localhost:3000/api/products";
 
 export default function Main() {
   const [isLoading, setIsLoading] = useState(false);

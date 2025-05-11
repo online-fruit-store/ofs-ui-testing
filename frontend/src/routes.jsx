@@ -13,6 +13,8 @@ import CheckoutInfo from "./outlets/CheckoutInfo";
 import AdminAddProduct from "./components/Admin/AdminAddProduct";
 import OrderHistory from "./components/OrderHistory";
 import OrderDetail from "./components/OrderDetail";
+import AdminOrders from "./components/Admin/AdminOrders";
+import AdminOrderDetail from "./components/Admin/AdminOrderDetail";
 const routes = [
   {
     path: "/",
@@ -37,6 +39,8 @@ const routes = [
     children: [
       { index: true, element: <AdminHome /> },
       { path: "AddProduct", element: <AdminAddProduct /> },
+      { path: "Orders", element: <AdminOrders /> },
+      { path: "Orders/:orderId", element: <AdminOrderDetail /> },
     ],
   },
 ];

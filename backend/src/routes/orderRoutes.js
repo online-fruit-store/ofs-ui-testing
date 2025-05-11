@@ -215,4 +215,50 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.put("/:orderId/status", async (req, res) => {
+  try {
+    if (!req.isAuthenticated() || req.user.role !== "admin") {
+      return res.status(403).json({
+        success: false,
+        message: "Unauthorized access. Admin privileges required.",
+      });
+    }
+
+    const { orderId } = req.params;
+    const { status } = req.body;
+
+    const validStatuses = ["pending", "processing", "completed", "cancelled"];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid status. Must be one of: " + validStatuses.join(", "),
+      });
+    }
+
+    const result = await pool.query(
+      "UPDATE orders SET status = $1 WHERE id = $2 RETURNING *",
+      [status, orderId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Order not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Order status updated successfully",
+      order: result.rows[0],
+    });
+  } catch (error) {
+    console.error("Error updating order status:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to update order status",
+      error: error.message,
+    });
+  }
+});
 module.exports = router;

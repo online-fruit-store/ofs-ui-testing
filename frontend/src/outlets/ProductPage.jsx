@@ -4,7 +4,7 @@ import { CartContext } from "../contexts/CartContext";
 import useFetch from "../hooks/useFetch";
 import { toast } from "react-toastify";
 
-const BASE_URL = "http://localhost:3000/products";
+const BASE_URL = "http://localhost:3000/api/products";
 
 export default function ProductPage() {
   const { cart, setCart } = useContext(CartContext);
@@ -27,9 +27,7 @@ export default function ProductPage() {
     const existingProduct = cart.find((p) => p.name === name);
     if (existingProduct) {
       setCart(
-        cart.map((p) =>
-          p.name === name ? { ...p, qty: p.qty + 1 } : p
-        )
+        cart.map((p) => (p.name === name ? { ...p, qty: p.qty + 1 } : p))
       );
     } else {
       setCart([...cart, { name, qty: 1, price, weight, url }]);

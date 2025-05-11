@@ -84,21 +84,99 @@ app.use("/api/orders", orderRoutes);
 const paymentRoutes = require("./routes/paymentRoutes");
 app.use("/api/payments", paymentRoutes);
 
-app.post("/register", async (req, res, next) => {
+app.get("/api/products", async (req, res) => {
+  let products = [];
+  const { category } = req.query;
+  if (category) {
+    products = await db.getFilteredProducts(category);
+  } else {
+    products = await db.getAllProducts();
+  }
+  res.json(products);
+});
+
+app.post("/api/products", async (req, res) => {
+  const { name, price, weight, stock, description, category, img_url } =
+    req.body;
+
   try {
-    const { firstName, lastName, email, password } = req.body;
-    await pool.query(
-      "INSERT INTO userspace (first_name, last_name, email, password, role) VALUES ($1, $2, $3, $4, 'customer')",
-      [firstName, lastName, email, password]
+    if (!name || !price || !weight || !category) {
+      return res
+        .status(400)
+        .json({ error: "Name, price, weight, and category are required" });
+    }
+
+    const result = await pool.query(
+      `
+      INSERT INTO products (name, price, weight, category, stock, img_url, description)
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
+      RETURNING *;
+      `,
+      [
+        name,
+        price,
+        weight,
+        category,
+        stock || 0,
+        img_url || null,
+        description || null,
+      ]
     );
-    res.redirect("http://localhost:5173/");
+
+    return res.status(201).json(result.rows[0]);
   } catch (err) {
-    return next(err);
+    console.error("Error creating product:", err.message);
+    return res.status(500).json({ error: "Server error" });
   }
 });
-app.put("/products/:id", async (req, res) => {
+
+app.delete("/api/products/:id", async (req, res) => {
   const { id } = req.params;
-  const { name, price, weight, stock } = req.body;
+
+  try {
+    const result = await pool.query(
+      `DELETE FROM products WHERE id = $1 RETURNING *`,
+      [id]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    res.json({
+      success: true,
+      message: "Product deleted successfully",
+      product: result.rows[0],
+    });
+  } catch (err) {
+    console.error("Error deleting product:", err.message);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+app.get("/api/products/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query(`SELECT * FROM products WHERE id = $1`, [
+      id,
+    ]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+app.put("/api/products/:id", async (req, res) => {
+  const { id } = req.params;
+  const { name, price, weight, stock, description, category, img_url } =
+    req.body;
 
   try {
     const result = await pool.query(
@@ -107,11 +185,14 @@ app.put("/products/:id", async (req, res) => {
       SET name = $1,
           price = $2,
           weight = $3,
-          stock = $4
-      WHERE id = $5
+          stock = $4,
+          description = $5,
+          category = $6,
+          img_url = $7
+      WHERE id = $8
       RETURNING *;
       `,
-      [name, price, weight, stock, id]
+      [name, price, weight, stock, description, category, img_url, id]
     );
 
     if (result.rowCount === 0) {
@@ -122,6 +203,19 @@ app.put("/products/:id", async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ error: "Server error" });
+  }
+});
+
+app.post("/register", async (req, res, next) => {
+  try {
+    const { firstName, lastName, email, password } = req.body;
+    await pool.query(
+      "INSERT INTO userspace (first_name, last_name, email, password, role) VALUES ($1, $2, $3, $4, 'customer')",
+      [firstName, lastName, email, password]
+    );
+    res.redirect("http://localhost:5173/");
+  } catch (err) {
+    return next(err);
   }
 });
 
@@ -140,23 +234,6 @@ app.get("/auth/status", (req, res) => {
   } else {
     res.json({ loggedIn: false });
   }
-});
-
-app.get("/products", async (req, res) => {
-  let products = [];
-  const { category } = req.query;
-  if (category) {
-    products = await db.getFilteredProducts(category);
-  } else {
-    products = await db.getAllProducts();
-  }
-  res.json(products);
-});
-
-app.get("/products/:productName", async (req, res) => {
-  const { productName } = req.params;
-  const product = await db.getProduct(productName);
-  res.json(product);
 });
 
 app.get("/categories", async (req, res) => {

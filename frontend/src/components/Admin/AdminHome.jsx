@@ -2,10 +2,10 @@ import useFetch from "../../hooks/useFetch";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const BASE_URL = "http://localhost:3000/products";
+const BASE_URL = "http://localhost:3000/api/products";
 
 export default function AdminHome() {
-  const { data: products, isLoading, error } = useFetch(`${BASE_URL}`);
+  const { data: products, isLoading, error, refetch } = useFetch(`${BASE_URL}`);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -49,8 +49,34 @@ export default function AdminHome() {
       }
     };
 
+    const handleDelete = async () => {
+      if (window.confirm(`Are you sure you want to delete ${product.name}?`)) {
+        try {
+          const res = await fetch(`${BASE_URL}/${product.id}`, {
+            method: "DELETE",
+          });
+
+          if (!res.ok) throw new Error("Failed to delete product");
+
+          alert(`${product.name} has been deleted.`);
+          refetch(); // Refresh product list
+        } catch (err) {
+          console.error(err);
+          alert("Error deleting product.");
+        }
+      }
+    };
+
     return (
-      <div className="product-card flex flex-col justify-center items-center border rounded-md gap-4">
+      <div className="product-card flex flex-col justify-center items-center border rounded-md gap-4 relative">
+        <div
+          className="absolute top-1 right-1 text-red-500 font-bold cursor-pointer h-5 w-5 flex items-center justify-center text-lg"
+          onClick={handleDelete}
+          title="Delete product"
+        >
+          ×
+        </div>
+
         <img
           className="pt-4 items-center w-[80px] h-[96px]"
           src={product.img_url}
