@@ -131,16 +131,13 @@ export default function AdminAddProduct() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen  py-8">
       <div className="max-w-4xl mx-auto bg-white border border-gray-200">
         <div className="bg-blue-500 px-6 py-4">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-semibold text-white">
               Add New Product
             </h1>
-            <Link to="/Admin" className="bg-blue-400 text-white px-4 py-2">
-              Back to Products
-            </Link>
           </div>
         </div>
 

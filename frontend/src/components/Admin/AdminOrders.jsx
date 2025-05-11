@@ -351,10 +351,8 @@ export default function AdminOrders() {
                           View
                         </Link>
                         <button
-                          onClick={() => {
-                            /* Handle status change */
-                          }}
-                          className="text-green-600 hover:text-green-900 hover:cursor-pointer"
+                          onClick={() => {}}
+                          className="text-green-600 hover:text-green-900"
                         >
                           Update Status
                         </button>

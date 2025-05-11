@@ -133,7 +133,7 @@ export default function OrderHistory() {
               >
                 <div className="bg-gray-50 px-6 py-4 border-b flex justify-between items-center">
                   <div>
-                    <h3 className="font-semibold">Order #{order.id}</h3>
+                    <h3 className="font-semibold">Order ID: {order.id}</h3>
                     <p className="text-sm text-gray-500">
                       {formatDate(order.created_at)}
                     </p>

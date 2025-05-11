@@ -169,7 +169,7 @@ export default function AdminHome() {
           <p className="text-2xl mb-[0.5rem]">Products</p>
           <Link
             to="AddProduct"
-            className="py-[0.25rem] px-[0.5rem] text-[0.875rem] border rounded-sm bg-blue-200"
+            className="py-[0.25rem] px-[0.5rem] text-[0.875rem] border rounded-sm bg-blue-500 text-white"
           >
             Add a product
           </Link>
