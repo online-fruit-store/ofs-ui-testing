@@ -9,9 +9,6 @@ export default function AdminHeader() {
         <div className="header-content flex flex-auto gap-[1rem]">
           <ul className="flex flex-row gap-[1rem]">
             <li>
-              <Link to="/">Customer Home</Link>
-            </li>
-            <li>
               <Link to="/Admin">Products</Link>
             </li>
             <li>
@@ -25,6 +22,7 @@ export default function AdminHeader() {
             Warning: Any changes made in this setting will affect the entire
             site.
           </p>
+          <Link to="/">Customer Home</Link>
         </div>
       </div>
     </nav>

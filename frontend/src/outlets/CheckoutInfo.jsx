@@ -52,6 +52,24 @@ export default function PaymentForm() {
         ...formData,
         [name]: formatted,
       });
+
+      if (errors.cardNumber && cleaned.length > 0) {
+        const firstDigit = cleaned.charAt(0);
+        const firstTwoDigits = parseInt(cleaned.substring(0, 2) || "0");
+        const firstFourDigits = parseInt(cleaned.substring(0, 4) || "0");
+
+        const isVisa = firstDigit === "4";
+        const isMastercard =
+          (firstTwoDigits >= 51 && firstTwoDigits <= 55) ||
+          (firstFourDigits >= 2221 && firstFourDigits <= 2720);
+
+        if (isVisa || isMastercard) {
+          setErrors({
+            ...errors,
+            cardNumber: "",
+          });
+        }
+      }
     } else if (name === "cvv") {
       const cleaned = value.replace(/\D/g, "");
       setFormData({
@@ -80,6 +98,28 @@ export default function PaymentForm() {
     }
 
     const cardNumberDigits = formData.cardNumber.replace(/\D/g, "");
+    if (!cardNumberDigits) {
+      newErrors.cardNumber = "Card number is required";
+    } else if (cardNumberDigits.length !== 16) {
+      newErrors.cardNumber = "Card number must be 16 digits";
+    } else {
+      const firstDigit = cardNumberDigits.charAt(0);
+      const firstTwoDigits = parseInt(cardNumberDigits.substring(0, 2));
+      const firstFourDigits = parseInt(cardNumberDigits.substring(0, 4));
+
+      const isVisa = firstDigit === "4";
+      const isMastercard =
+        (firstTwoDigits >= 51 && firstTwoDigits <= 55) ||
+        (firstFourDigits >= 2221 && firstFourDigits <= 2720);
+
+      if (!isVisa && !isMastercard) {
+        newErrors.cardNumber = "Only Visa and Mastercard are accepted";
+      }
+    }
+
+    if (!formData.cardName.trim()) {
+      newErrors.cardName = "Cardholder name is required";
+    }
     if (!cardNumberDigits) {
       newErrors.cardNumber = "Card number is required";
     } else if (cardNumberDigits.length !== 16) {

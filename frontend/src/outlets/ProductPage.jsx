@@ -8,29 +8,38 @@ const BASE_URL = "http://localhost:3000/api/products";
 
 export default function ProductPage() {
   const { cart, setCart } = useContext(CartContext);
-  const { productName } = useParams();
+  const { productId } = useParams();
   const {
     data: product,
     isLoading,
     error,
-  } = useFetch(`${BASE_URL}/${productName}`);
+  } = useFetch(`${BASE_URL}/${productId}`);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!product) return <div>Product not found</div>;
 
   function addToCart() {
-    const { name, price, weight, img_url: url } = product;
+    const { id, name, price, weight, img_url } = product;
 
     toast(`${name} added to cart!`);
 
-    const existingProduct = cart.find((p) => p.name === name);
+    const existingProduct = cart.find((p) => p.id === id);
     if (existingProduct) {
-      setCart(
-        cart.map((p) => (p.name === name ? { ...p, qty: p.qty + 1 } : p))
-      );
+      setCart(cart.map((p) => (p.id === id ? { ...p, qty: p.qty + 1 } : p)));
     } else {
-      setCart([...cart, { name, qty: 1, price, weight, url }]);
+      setCart([
+        ...cart,
+        {
+          id,
+          name,
+          qty: 1,
+          price,
+          weight,
+          url: img_url,
+          img_url,
+        },
+      ]);
     }
   }
 

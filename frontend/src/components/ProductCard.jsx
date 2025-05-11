@@ -89,7 +89,7 @@ export default function ProductCard({ id, name, price, weight, url }) {
 
   return (
     <div className="flex gap-5 10 items-center justify-center p-5 rounded-lg hover:bg-gray-200 w-80">
-      <Link to={`${name}`}>
+      <Link to={`${id}`}>
         <div className="w-32 h-32 flex items-center justify-center">
           <img className="w-full h-full object-contain" src={url} alt={name} />
         </div>

@@ -8,7 +8,6 @@ export default function AdminOrders() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  // Pagination state
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 10,
@@ -16,7 +15,6 @@ export default function AdminOrders() {
     totalPages: 0,
   });
 
-  // Filter state
   const [filters, setFilters] = useState({
     status: "",
     startDate: "",
@@ -26,7 +24,6 @@ export default function AdminOrders() {
     sortOrder: "DESC",
   });
 
-  // Check if user is admin
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -38,14 +35,11 @@ export default function AdminOrders() {
         if (data.loggedIn) {
           setUser(data.user);
           if (data.user.role !== "admin") {
-            // Redirect non-admin users
             navigate("/");
           } else {
-            // Fetch orders for admin
             fetchOrders();
           }
         } else {
-          // Redirect to login
           navigate("/login");
         }
       } catch (err) {
@@ -57,11 +51,9 @@ export default function AdminOrders() {
     checkAuth();
   }, [navigate]);
 
-  // Fetch orders with filters and pagination
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      // Build query string from filters and pagination
       const queryParams = new URLSearchParams({
         page: pagination.page,
         limit: pagination.limit,
@@ -96,7 +88,6 @@ export default function AdminOrders() {
     }
   };
 
-  // Handle filter changes
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters((prev) => ({
@@ -105,17 +96,15 @@ export default function AdminOrders() {
     }));
   };
 
-  // Apply filters
   const applyFilters = (e) => {
     e.preventDefault();
     setPagination((prev) => ({
       ...prev,
-      page: 1, // Reset to first page when applying filters
+      page: 1,
     }));
     fetchOrders();
   };
 
-  // Handle pagination
   const handlePageChange = (newPage) => {
     if (newPage < 1 || newPage > pagination.totalPages) return;
 
@@ -126,12 +115,10 @@ export default function AdminOrders() {
     fetchOrders();
   };
 
-  // Format date for display
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleString();
   };
 
-  // Status badge color
   const getStatusColor = (status) => {
     switch (status) {
       case "completed":
@@ -171,7 +158,7 @@ export default function AdminOrders() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8 mt-15">
+    <div className="min-h-screen  p-8 mt-15">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">All Orders</h1>
@@ -181,7 +168,6 @@ export default function AdminOrders() {
           </span>
         </div>
 
-        {/* Filters */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-6">
           <h2 className="text-lg font-semibold mb-4">Filters</h2>
           <form
@@ -273,7 +259,6 @@ export default function AdminOrders() {
           </form>
         </div>
 
-        {/* Orders Table */}
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
@@ -364,7 +349,6 @@ export default function AdminOrders() {
             </table>
           </div>
 
-          {/* Pagination */}
           {pagination.totalPages > 1 && (
             <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
               <div className="text-sm text-gray-700">

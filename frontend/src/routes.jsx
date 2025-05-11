@@ -25,7 +25,7 @@ const routes = [
       { index: true, element: <Home /> },
       { path: "Auth", element: <Auth /> },
       { path: "products", element: <AllProducts /> },
-      { path: "products/:productName", element: <ProductPage /> },
+      { path: "products/:productId", element: <ProductPage /> },
       { path: "Logout", element: <Logout /> },
       { path: "Checkout", element: <Checkout /> },
       { path: "Receipt", element: <Receipt /> },

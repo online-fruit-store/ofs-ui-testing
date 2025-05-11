@@ -30,18 +30,23 @@ export default function AdminHome() {
 
     const handleSave = async () => {
       try {
+        const updatedProduct = {
+          ...product,
+          ...formData,
+        };
+
         const res = await fetch(`${BASE_URL}/${product.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(updatedProduct),
         });
 
         if (!res.ok) throw new Error("Failed to update product");
 
-        const updatedProduct = await res.json();
-        console.log("Updated product:", updatedProduct);
+        const savedProduct = await res.json();
+        console.log("Updated product:", savedProduct);
         setEditing(false);
       } catch (err) {
         console.error(err);
