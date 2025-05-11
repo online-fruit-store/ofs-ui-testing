@@ -77,6 +77,13 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+const orderRoutes = require("./routes/orderRoutes");
+
+app.use("/api/orders", orderRoutes);
+
+const paymentRoutes = require("./routes/paymentRoutes");
+app.use("/api/payments", paymentRoutes);
+
 app.post("/register", async (req, res, next) => {
   try {
     const { firstName, lastName, email, password } = req.body;
@@ -215,10 +222,6 @@ app.post("/user/cart", async (req, res) => {
       return res.status(400).json({ error: "Cart must be an array" });
     }
 
-    // Debug the cart data
-    console.log("Received cart data:", JSON.stringify(cart));
-
-    // Use parameterized query with explicit JSONB cast
     await pool.query("UPDATE userspace SET cart = $1::jsonb WHERE id = $2", [
       JSON.stringify(cart),
       req.user.id,

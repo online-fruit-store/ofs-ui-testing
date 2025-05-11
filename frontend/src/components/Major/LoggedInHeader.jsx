@@ -29,11 +29,12 @@ export default function LoggedInHeader() {
                 <Dropdown
                   text={"Welcome " + auth.user.first_name}
                   className="relative inline-block border-none bg-blue-800 hover:bg-blue-900 rounded-full p-0"
-                  listItems={
-                    auth.user.role === "admin"
+                  listItems={[
+                    ...(auth.user.role === "admin"
                       ? [<Link to="/Admin">Admin Panel</Link>]
-                      : []
-                  }
+                      : []),
+                    <Link to="/Orders">Order History</Link>,
+                  ]}
                 />
               </li>
               <li className="pr-1">

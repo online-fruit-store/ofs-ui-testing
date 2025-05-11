@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CartContext } from "../contexts/CartContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-export default function PaymentForm({ onSubmit = () => {} }) {
+export default function PaymentForm() {
   const { cart, setCart } = useContext(CartContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -139,33 +139,60 @@ export default function PaymentForm({ onSubmit = () => {} }) {
 
     if (validateForm()) {
       setIsProcessing(true);
+      setErrors({});
 
       try {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        if (Math.random() > 0.1) {
-          const paymentResult = {
-            success: true,
-            transactionId: "DEMO-" + Math.floor(Math.random() * 1000000),
-            amount: calculateTotal().toFixed(2),
-            last4: formData.cardNumber.slice(-4),
-            timestamp: new Date().toISOString(),
-            cart: cart,
-          };
-          console.log(paymentResult);
-          onSubmit(paymentResult);
-        } else {
-          setErrors({
-            form: "Payment declined. Please check your card details and try again.",
-          });
+        let userId = null;
+        try {
+          const authResponse = await fetch(
+            "http://localhost:3000/auth/status",
+            {
+              credentials: "include",
+            }
+          );
+          const authData = await authResponse.json();
+          if (authData.loggedIn) {
+            userId = authData.user.id;
+          }
+        } catch (authError) {
+          console.warn("Could not get user authentication status:", authError);
         }
-      } catch (error) {
-        console.error("Error in payment processing:", error);
-        setErrors({
-          form: "An error occurred while processing your payment. Please try again.",
+
+        const paymentResult = {
+          success: true,
+          transactionId: "DEMO-" + Math.floor(Math.random() * 1000000),
+          amount: calculateTotal().toFixed(2),
+          last4: formData.cardNumber.slice(-4),
+          timestamp: new Date().toISOString(),
+          cart: cart,
+          userId: userId,
+          billingAddress: formData.billingAddress,
+          city: formData.city,
+          state: formData.state,
+          zipCode: formData.zipCode,
+        };
+
+        console.log("Payment data:", paymentResult);
+
+        const response = await fetch("http://localhost:3000/api/payments", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(paymentResult),
+          credentials: "include",
         });
-      } finally {
-        setCart([]);
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || "Payment processing failed");
+        }
+
+        console.log("Payment saved and order created:", data);
+
         navigate("/Receipt", {
           state: {
             cartItems: cart.map((item) => ({
@@ -173,8 +200,21 @@ export default function PaymentForm({ onSubmit = () => {} }) {
               quantity: item.qty,
             })),
             total: calculateTotal(),
+            transactionId: paymentResult.transactionId,
+            paymentInfo: paymentResult,
+            orderId: data.orderId,
           },
         });
+
+        setCart([]);
+      } catch (error) {
+        console.error("Error in payment processing:", error);
+        setErrors({
+          form:
+            error.message ||
+            "An error occurred while processing your payment. Please try again.",
+        });
+        setIsProcessing(false);
       }
     }
   };

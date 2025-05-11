@@ -6,12 +6,13 @@ import AdminApp from "./AdminApp";
 import AdminHome from "./components/Admin/AdminHome";
 import Home from "./outlets/Home";
 import ErrorPage from "./outlets/ErrorPage";
-import Whatever from "./outlets/Whatever";
 import Logout from "./components/Logout";
 import Checkout from "./outlets/Checkout"; // IMPORTANT: correct import!
 import Receipt from "./outlets/Receipt";
 import CheckoutInfo from "./outlets/CheckoutInfo";
 import AdminAddProduct from "./components/Admin/AdminAddProduct";
+import OrderHistory from "./components/OrderHistory";
+import OrderDetail from "./components/OrderDetail";
 const routes = [
   {
     path: "/",
@@ -26,6 +27,8 @@ const routes = [
       { path: "Checkout", element: <Checkout /> },
       { path: "Receipt", element: <Receipt /> },
       { path: "Checkout/Processing", element: <CheckoutInfo /> },
+      { path: "Orders", element: <OrderHistory /> },
+      { path: "Orders/:orderId", element: <OrderDetail /> },
     ],
   },
   {

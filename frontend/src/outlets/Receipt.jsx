@@ -15,18 +15,17 @@ export default function Receipt() {
     return null;
   }
 
-  const { cartItems } = state;
-  const orderNumber = Math.floor(Math.random() * 900000 + 100000);
+  const { cartItems, transactionId, total: orderTotal } = state;
   const orderDate = new Date().toLocaleString();
 
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-  const taxRate = 0.1025; // Changed to match Checkout.jsx's 10.25%
+  const taxRate = 0.1025;
   const taxAmount = subtotal * taxRate;
   const totalWeight = cartItems.reduce(
-    (sum, item) => sum + (item.weight * item.quantity),
+    (sum, item) => sum + item.weight * item.quantity,
     0
   );
   const shippingFee = totalWeight >= 20 ? 5 : 0;
@@ -37,14 +36,14 @@ export default function Receipt() {
       <div className="p-8">
         <h1 className="text-3xl font-bold">Thank you for your order!</h1>
         <p className="mt-4 text-lg">
-          Your receipt and confirmation details will be here.
+          Your receipt and confirmation details are below.
         </p>
       </div>
       <h1 className="text-3xl font-bold mb-6 text-center">Order Receipt</h1>
 
       <div className="mb-4 text-gray-600 text-center">
         <p>
-          Order Number: <span className="font-semibold">{orderNumber}</span>
+          Transaction ID: <span className="font-semibold">{transactionId}</span>
         </p>
         <p>
           Date: <span className="font-semibold">{orderDate}</span>
@@ -59,7 +58,8 @@ export default function Receipt() {
             <div>
               <p className="font-medium">{item.name}</p>
               <p className="text-sm text-gray-500">
-                Quantity: {item.quantity} | Weight: {(item.weight * item.quantity).toFixed(2)} lbs
+                Quantity: {item.quantity} | Weight:{" "}
+                {(item.weight * item.quantity).toFixed(2)} lbs
               </p>
             </div>
             <div className="text-right">
@@ -73,10 +73,17 @@ export default function Receipt() {
 
       <div className="text-right text-lg space-y-2">
         <p>Subtotal: ${subtotal.toFixed(2)}</p>
-        <p>Shipping: {shippingFee === 0 ? "Free" : `$${shippingFee.toFixed(2)}`}</p>
+        <p>
+          Shipping: {shippingFee === 0 ? "Free" : `$${shippingFee.toFixed(2)}`}
+        </p>
         <p>Tax (10.25%): ${taxAmount.toFixed(2)}</p>
         <p>Total Weight: {totalWeight.toFixed(2)} lbs</p>
         <p className="text-xl font-bold">Total: ${total.toFixed(2)}</p>
+      </div>
+
+      <div className="mt-8 p-4 bg-gray-100 rounded-lg text-center">
+        <p className="text-sm text-gray-600">Payment processed successfully</p>
+        <p className="text-sm text-gray-600">Transaction ID: {transactionId}</p>
       </div>
 
       <div className="flex justify-center mt-8">
