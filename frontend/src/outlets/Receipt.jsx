@@ -40,7 +40,6 @@ export default function Receipt() {
         </p>
       </div>
       <h1 className="text-3xl font-bold mb-6 text-center">Order Receipt</h1>
-
       <div className="mb-4 text-gray-600 text-center">
         <p>
           Transaction ID: <span className="font-semibold">{transactionId}</span>
@@ -49,9 +48,7 @@ export default function Receipt() {
           Date: <span className="font-semibold">{orderDate}</span>
         </p>
       </div>
-
       <hr className="my-6" />
-
       <div>
         {cartItems.map((item) => (
           <div key={item.id} className="flex justify-between py-2 border-b">
@@ -68,9 +65,7 @@ export default function Receipt() {
           </div>
         ))}
       </div>
-
       <hr className="my-6" />
-
       <div className="text-right text-lg space-y-2">
         <p>Subtotal: ${subtotal.toFixed(2)}</p>
         <p>
@@ -80,10 +75,16 @@ export default function Receipt() {
         <p>Total Weight: {totalWeight.toFixed(2)} lbs</p>
         <p className="text-xl font-bold">Total: ${total.toFixed(2)}</p>
       </div>
-
-      <div className="mt-8 p-4 bg-gray-100 rounded-lg text-center">
-        <p className="text-sm text-gray-600">Payment processed successfully</p>
-        <p className="text-sm text-gray-600">Transaction ID: {transactionId}</p>
+      <div className="mt-4 text-center">
+        <p>
+          Order Status:{" "}
+          <span className="font-semibold capitalize">
+            {state.orderStatus || "pending"}
+          </span>
+        </p>
+        <p className="text-sm text-gray-600 mt-2">
+          Your order is being processed.
+        </p>
       </div>
 
       <div className="flex justify-center mt-8">

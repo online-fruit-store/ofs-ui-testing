@@ -56,6 +56,7 @@ export default function Main() {
             <div key={product.name} className="flex justify-center">
               <ProductCard
                 name={product.name}
+                id={product.id}
                 price={product.price}
                 weight={product.weight}
                 url={product.img_url}

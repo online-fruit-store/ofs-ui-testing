@@ -3,12 +3,11 @@ import { useState, useContext } from "react";
 import { CartContext } from "../contexts/CartContext";
 import { ToastContainer, toast } from "react-toastify";
 
-export default function ProductCard({ name, price, weight, url }) {
+export default function ProductCard({ id, name, price, weight, url }) {
   const { cart, setCart } = useContext(CartContext);
   const [activeComponent, setActiveComponent] = useState(0);
   const [qty, setQty] = useState(0);
   const [lastToastTime, setLastToastTime] = useState(0);
-
 
   const buttonControls = [
     <button
@@ -20,52 +19,49 @@ export default function ProductCard({ name, price, weight, url }) {
       Add to Cart
     </button>,
 
+    <div className="flex gap-3">
+      <input
+        type="number"
+        min="0"
+        max="50"
+        value={qty}
+        onChange={handleQtyChange}
+        className="w-16 px-2 py-1 border rounded-md text-center"
+      />
+    </div>,
+  ];
 
-<div className="flex gap-3">
-  <input
-    type="number"
-    min="0"
-    max="50"
-    value={qty}
-    onChange={handleQtyChange}
-    className="w-16 px-2 py-1 border rounded-md text-center"
-  />
-</div>
+  function handleQtyChange(e) {
+    const value = parseInt(e.target.value, 10);
 
-]; 
+    if (!isNaN(value) && value >= 0 && value <= 500) {
+      setQty(value);
 
-function handleQtyChange(e) {
-  const value = parseInt(e.target.value, 10);
+      const now = Date.now();
+      if (now - lastToastTime > 5000) {
+        toast(`${name} added to cart!`);
+        setLastToastTime(now);
+      }
 
-  if (!isNaN(value) && value >= 0 && value <= 500) {
-    setQty(value);
-
-    const now = Date.now();
-    if (now - lastToastTime > 5000) {
-      toast(`${name} added to cart!`);
-      setLastToastTime(now);
+      setCart(
+        cart.map((p) => {
+          if (p.id === id) {
+            return { ...p, qty: value };
+          } else {
+            return p;
+          }
+        })
+      );
     }
-
-    setCart(
-      cart.map((p) => {
-        if (p.name === name) {
-          return { ...p, qty: value };
-        } else {
-          return p;
-        }
-      })
-    );
   }
-}
-
 
   function addToCart() {
-    let product = cart.find((p) => p.name === name);
+    let product = cart.find((p) => p.id === id);
     toast(`${name} added to cart!`);
     if (product) {
       setCart(
         cart.map((p) => {
-          if (p.name === name) {
+          if (p.id === id) {
             return { ...p, qty: p.qty + 1 };
           } else {
             return p;
@@ -75,7 +71,15 @@ function handleQtyChange(e) {
     } else {
       setCart([
         ...cart,
-        { name: name, qty: 1, price: price, weight: weight, url: url },
+        {
+          id: id,
+          name: name,
+          qty: 1,
+          price: price,
+          weight: weight,
+          url: url,
+          img_url: url,
+        },
       ]);
     }
 

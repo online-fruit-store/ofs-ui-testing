@@ -59,7 +59,7 @@ export default function AdminHome() {
           if (!res.ok) throw new Error("Failed to delete product");
 
           alert(`${product.name} has been deleted.`);
-          refetch(); // Refresh product list
+          refetch();
         } catch (err) {
           console.error(err);
           alert("Error deleting product.");

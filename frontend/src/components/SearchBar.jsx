@@ -9,7 +9,7 @@ export default function SearchBar() {
   const [isFocused, setIsFocused] = useState(false);
   const navigate = useNavigate();
   const { data: products, isLoading } = useFetch(
-    "http://localhost:3000/products"
+    "http://localhost:3000/api/products"
   );
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function SearchBar() {
   const handleSearch = (e) => {
     e.preventDefault();
     if (query.trim() && results.length > 0) {
-      navigate(`/products/${results[0].name}`);
+      navigate(`/products/${results[0].id}`);
       setQuery("");
       setResults([]);
     }
@@ -61,7 +61,7 @@ export default function SearchBar() {
               key={product.id}
               className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center"
               onMouseDown={() => {
-                navigate(`/products/${product.name}`);
+                navigate(`/products/${product.id}`);
                 setQuery("");
                 setResults([]);
               }}

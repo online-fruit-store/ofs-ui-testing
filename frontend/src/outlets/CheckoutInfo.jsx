@@ -153,8 +153,11 @@ export default function PaymentForm() {
             }
           );
           const authData = await authResponse.json();
-          if (authData.loggedIn) {
+          if (authData.loggedIn && authData.user && authData.user.id) {
             userId = authData.user.id;
+            console.log("User is logged in with ID:", userId, typeof userId);
+          } else {
+            console.log("User is not logged in or missing ID");
           }
         } catch (authError) {
           console.warn("Could not get user authentication status:", authError);
@@ -162,7 +165,7 @@ export default function PaymentForm() {
 
         const paymentResult = {
           success: true,
-          transactionId: "DEMO-" + Math.floor(Math.random() * 1000000),
+          transactionId: Math.floor(Math.random() * 1000000),
           amount: calculateTotal().toFixed(2),
           last4: formData.cardNumber.slice(-4),
           timestamp: new Date().toISOString(),
