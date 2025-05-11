@@ -367,3 +367,68 @@ app.get("/logout", async (req, res, next) => {
     next(err);
   }
 });
+
+// Get all users (admin only)
+app.get("/api/users", async (req, res) => {
+  try {
+    // Check if user is authenticated and is admin
+    if (!req.isAuthenticated() || req.user.role !== "admin") {
+      return res.status(403).json({ success: false, message: "Unauthorized" });
+    }
+
+    const result = await pool.query(
+      "SELECT id, first_name, last_name, email, role FROM userspace ORDER BY id"
+    );
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
+app.put("/api/users/:id/role", async (req, res) => {
+  try {
+    if (!req.isAuthenticated() || req.user.role !== "admin") {
+      return res.status(403).json({ success: false, message: "Unauthorized" });
+    }
+
+    const { id } = req.params;
+    const { role } = req.body;
+
+    const validRoles = ["customer", "employee", "admin"];
+    if (!validRoles.includes(role)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid role. Must be customer, employee, or admin",
+      });
+    }
+
+    if (parseInt(id) === req.user.id && role !== "admin") {
+      return res.status(400).json({
+        success: false,
+        message: "You cannot demote yourself from admin",
+      });
+    }
+
+    const result = await pool.query(
+      "UPDATE userspace SET role = $1 WHERE id = $2 RETURNING id, first_name, last_name, email, role",
+      [role, id]
+    );
+
+    if (result.rows.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    res.json({
+      success: true,
+      message: "User role updated successfully",
+      user: result.rows[0],
+    });
+  } catch (error) {
+    console.error("Error updating user role:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});

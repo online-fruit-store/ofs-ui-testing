@@ -17,6 +17,9 @@ export default function AdminHeader() {
             <li>
               <Link to="/Admin/Orders/">Orders</Link>
             </li>
+            <li>
+              <Link to="/Admin/Users/">Users</Link>
+            </li>
           </ul>
           <p className="text-red-600 font-bold">
             Warning: Any changes made in this setting will affect the entire

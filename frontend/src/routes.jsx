@@ -15,6 +15,7 @@ import OrderHistory from "./components/OrderHistory";
 import OrderDetail from "./components/OrderDetail";
 import AdminOrders from "./components/Admin/AdminOrders";
 import AdminOrderDetail from "./components/Admin/AdminOrderDetail";
+import UserManagement from "./components/Admin/UserManagement";
 const routes = [
   {
     path: "/",
@@ -41,6 +42,7 @@ const routes = [
       { path: "AddProduct", element: <AdminAddProduct /> },
       { path: "Orders", element: <AdminOrders /> },
       { path: "Orders/:orderId", element: <AdminOrderDetail /> },
+      { path: "Users", element: <UserManagement /> },
     ],
   },
 ];
